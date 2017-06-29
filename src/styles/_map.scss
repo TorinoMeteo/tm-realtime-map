@@ -1,0 +1,17 @@
+.map-container,
+.map-canvas,
+.map-loading {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 65px;
+}
+
+.map-loading {
+  background: $map-loading-bg;
+}
+
+.map-canvas {
+  top: 0;
+}

@@ -1,0 +1,22 @@
+.navbar.app-navbar {
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .navbar-brand {
+    margin-left: 2rem;
+    padding: 0;
+  }
+
+  .navbar-toggler {
+    border: 0;
+
+    i {
+      font-size: 2.5rem;
+    }
+  }
+
+  .navbar-title {
+    color: $navbar-title-color;
+  }
+}

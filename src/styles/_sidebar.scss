@@ -1,0 +1,11 @@
+.nav-sidebar {
+  background: $sidebar-bg;
+  color: $sidebar-color;
+  height: 100%;
+  left: -300px;
+  position: fixed;
+  top: 65px;
+  transition: left .3s linear;
+  width: 300px;
+  z-index: 100;
+}

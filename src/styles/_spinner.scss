@@ -1,0 +1,24 @@
+// scss-lint:disable SelectorFormat
+.react-spinner {
+  height: 32px;
+  left: 50%;
+  position: relative;
+  top: 50%;
+  width: 32px;
+}
+
+.react-spinner_bar {
+  animation: react-spinner_spin 1.2s linear infinite;
+  background-color: $spinner-bg;
+  border-radius: 5px;
+  height: 7.8%;
+  left: -10%;
+  position: absolute;
+  top: -3.9%;
+  width: 20%;
+}
+
+@keyframes react-spinner_spin {
+  0% { opacity: 1; }
+  100% { opacity: .15; }
+}
