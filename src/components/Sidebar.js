@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import SidebarRealtimeTab from 'components/SidebarRealtimeTab'
 
 export class Sidebar extends React.Component {
   static propTypes = {
@@ -23,38 +24,10 @@ export class Sidebar extends React.Component {
             <Tab>Storico</Tab>
           </TabList>
           <TabPanel>
-            <ul className='sidebar-quantity-list depth-0'>
-              <li>
-                <i className='wi wi-thermometer' />
-                Temperatura
-                <ul className='depth-1'>
-                  <li>
-                    <a
-                      className='btn btn-controller btn-sm'
-                      onClick={() => this.props.changeQuantity('temperature')}
-                    >corrente
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='btn btn-controller btn-sm'
-                      onClick={() => this.props.changeQuantity('temperature_max')}
-                    >massima
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='btn btn-controller btn-sm'
-                      onClick={() => this.props.changeQuantity('temperature_min')}
-                    >minima
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a onClick={() => this.props.changeQuantity('pressure')}>Pressione</a>
-              </li>
-            </ul>
+            <SidebarRealtimeTab
+              quantity={this.props.map.quantity}
+              changeQuantity={this.props.changeQuantity}
+            />
           </TabPanel>
           <TabPanel>
             STORICO

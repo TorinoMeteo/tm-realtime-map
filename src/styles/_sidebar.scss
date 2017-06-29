@@ -1,8 +1,11 @@
+// scss-lint:disable ImportantRule
 .nav-sidebar {
   background: $sidebar-bg;
   color: $sidebar-color;
   height: 100%;
   left: -300px;
+  overflow: auto;
+  padding-bottom: 2.8rem;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
@@ -16,6 +19,8 @@
 
   i {
     margin-right: .5rem;
+    text-align: center;
+    width: 20px;
   }
 
   ul {
@@ -35,4 +40,11 @@
   background: $sidebar-btn-controller-bg;
   border: 1px solid $sidebar-btn-controller-border-color;
   color: $sidebar-btn-controller-color;
+  cursor: pointer;
+
+  &.active {
+    background: $sidebar-btn-controller-active-bg;
+    border: 1px solid $sidebar-btn-controller-active-border-color;
+    color: $sidebar-btn-controller-active-color !important;
+  }
 }
