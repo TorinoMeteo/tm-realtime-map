@@ -1,0 +1,12 @@
+// scss-lint:disable SelectorFormat
+@import '~react-tabs/style/react-tabs';
+
+.react-tabs__tab--selected {
+  background: $tabs-selected-bg;
+  border-color: $tabs-border-color;
+  color: $tabs-selected-color;
+}
+
+.react-tabs__tab-list {
+  border-bottom: 1px solid $tabs-border-color;
+}

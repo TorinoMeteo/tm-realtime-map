@@ -3,7 +3,10 @@
  */
 const config = {
   api: {},
-  version: '1.0.0.alpha.1'
+  version: '1.0.0.alpha.1',
+  map: {
+    offlineInterval: 30 // minutes
+  }
 }
 
 config.basename = __PROD__

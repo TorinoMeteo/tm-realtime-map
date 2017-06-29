@@ -5,6 +5,7 @@ import {
 } from 'react-google-maps'
 import { blue2red } from 'utils/colors'
 import { COLOR_SCALE } from 'config/scales'
+import { isOffline } from 'utils/map'
 
 let dftIcon = {
   // path: 'M 0, 0 m -18, 0 a 18,18 0 1,0 36,0 a 18,18 0 1,0 -36,0', // circle
@@ -21,7 +22,7 @@ const TmMarker = (props) => {
   let value = parseFloat(props.obj[props.quantity])
 
   let icon
-  if (isNaN(value)) {
+  if (isNaN(value) || isOffline(props.obj)) {
     icon = {
       ...dftIcon,
       fillColor: 'white'
@@ -48,7 +49,7 @@ const TmMarker = (props) => {
     <Marker
       position={{ lat: lat, lng: lng }}
       label={{
-        text: `${isNaN(value) ? 'N.D.' : value}`,
+        text: `${isNaN(value) || isOffline(props.obj) ? 'N.D.' : value}`,
         fontSize: '12px',
         color: '#000'
       }}

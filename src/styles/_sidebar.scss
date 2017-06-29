@@ -9,3 +9,30 @@
   width: 300px;
   z-index: 100;
 }
+
+.sidebar-quantity-list {
+  list-style: none;
+  padding-left: 1rem;
+
+  i {
+    margin-right: .5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 10px;
+  }
+
+  .depth-1 {
+    li {
+      display: inline-block;
+      padding: .5rem;
+    }
+  }
+}
+
+.btn-controller {
+  background: $sidebar-btn-controller-bg;
+  border: 1px solid $sidebar-btn-controller-border-color;
+  color: $sidebar-btn-controller-color;
+}
