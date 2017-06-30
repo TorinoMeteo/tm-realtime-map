@@ -1,5 +1,6 @@
 // scss-lint:disable ImportantRule
 body {
+  overflow-y: hidden;
   -webkit-tap-highlight-color: $slider-tap-color;
 }
 
@@ -30,7 +31,11 @@ body {
 
 .scroll-area {
   bottom: 0;
-  left: 290px;
+  left: 270px;
   position: absolute !important;
   top: 50px;
+}
+
+.scrollarea-content {
+  margin-right: 18px !important;
 }

@@ -1,59 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  withGoogleMap,
-  GoogleMap
-} from 'react-google-maps'
-import LiveMarker from 'components/LiveMarker'
-import HistoryMarker from 'components/HistoryMarker'
-import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import Spinner from 'react-spinner'
-
-const TmGoogleMapLive = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 45.397, lng: 7.644 }}
-  >
-    <MarkerClusterer
-      averageCenter
-      enableRetinaIcons
-      gridSize={60}
-    >
-      {props.data.map((obj, index) => {
-        return (
-          <LiveMarker
-            obj={obj}
-            key={obj.station.id}
-            quantity={props.quantity}
-          />
-        )
-      })}
-    </MarkerClusterer>
-  </GoogleMap>
-))
-
-const TmGoogleMapHistory = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 45.397, lng: 7.644 }}
-  >
-    <MarkerClusterer
-      averageCenter
-      enableRetinaIcons
-      gridSize={60}
-    >
-      {props.data.map((obj, index) => {
-        return (
-          <HistoryMarker
-            obj={obj}
-            key={obj.station.id}
-            quantity={props.quantity}
-          />
-        )
-      })}
-    </MarkerClusterer>
-  </GoogleMap>
-))
+import LiveMap from 'components/LiveMap'
+import HistoryMap from 'components/HistoryMap'
 
 class Map extends React.Component {
   componentDidMount () {
@@ -90,7 +39,7 @@ class Map extends React.Component {
 
     if (this.props.map.view === 'live') {
       return (
-        <TmGoogleMapLive
+        <LiveMap
           containerElement={<div className='map-container' />}
           mapElement={<div className='map-canvas' />}
           data={this.props.realtime.data.data}
@@ -99,7 +48,7 @@ class Map extends React.Component {
       )
     } else if (this.props.map.view === 'history') {
       return (
-        <TmGoogleMapHistory
+        <HistoryMap
           containerElement={<div className='map-container' />}
           mapElement={<div className='map-canvas' />}
           data={this.props.history.data}

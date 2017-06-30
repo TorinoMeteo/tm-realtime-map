@@ -2,6 +2,7 @@
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  padding: .5rem;
 
   .navbar-brand {
     margin-left: 2rem;
@@ -10,6 +11,11 @@
 
   .navbar-toggler {
     border: 0;
+
+    &:focus {
+      border: 0;
+      outline: 0;
+    }
 
     i {
       font-size: 2.5rem;

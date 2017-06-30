@@ -38,14 +38,50 @@ export class SidebarHistoryTab extends React.Component {
     let endDate = moment().subtract(1, 'day').startOf('day').format('X')
     this.days = (endDate - this.startDate) / (60 * 60 * 24)
     let dataDate = moment(props.dataDate.year + '-' + props.dataDate.month + '-' + props.dataDate.day, 'YYYY-M-D')
-      .startOf('day').format('X')
+      .endOf('day').format('X')
     this.state = {
       day: (dataDate - this.startDate) / (60 * 60 * 24)
     }
+    this.years = []
+    for (var y = 2010, m = moment().year(); y <= m; y++) {
+      this.years.push(y)
+    }
+    this.windowWidth = window.innerWidth
   }
+
+  slider () {
+    let changeHistoryDate = this.props.changeHistoryDate
+    return (
+      <ScrollArea className='scroll-area'>
+        <ReactSlider
+          min={0}
+          max={this.days}
+          step={1}
+          defaultValue={this.state.day}
+          orientation='vertical'
+          invert
+          onChange={(value) => {
+            this.setState({ day: value })
+          }}
+          onAfterChange={(value) => {
+            this.setState({ day: value })
+            let date = moment.unix(parseInt(this.startDate) + (parseInt(value) * 60 * 60 * 24))
+            console.log(date.format('Y'), date.format('M'), date.format('D'))
+            changeHistoryDate(date.format('Y'), date.format('M'), date.format('D'))
+          }}
+        >
+          <div className='handle'>
+            {moment.unix(
+              parseInt(this.startDate) + parseInt(this.state.day) * 60 * 60 * 24
+            ).format('DD/MM/YY')}
+          </div>
+        </ReactSlider>
+      </ScrollArea>
+    )
+  }
+
   render () {
     let changeHistoryQuantity = this.props.changeHistoryQuantity
-    let changeHistoryDate = this.props.changeHistoryDate
     let quantity = this.props.quantity
     return (
       <div>
@@ -89,31 +125,7 @@ export class SidebarHistoryTab extends React.Component {
             </li>
           </ul>
         </div>
-        <ScrollArea className='scroll-area'>
-          <ReactSlider
-            min={0}
-            max={this.days}
-            step={1}
-            defaultValue={this.state.day}
-            orientation='vertical'
-            invert
-            onChange={(value) => {
-              this.setState({ day: value })
-            }}
-            onAfterChange={(value) => {
-              this.setState({ day: value })
-              let date = moment.unix(parseInt(this.startDate) + (parseInt(value) * 60 * 60 * 24))
-              console.log(date.format('Y'), date.format('M'), date.format('D'))
-              changeHistoryDate(date.format('Y'), date.format('M'), date.format('D'))
-            }}
-          >
-            <div className='handle'>
-              {moment.unix(
-                parseInt(this.startDate) + parseInt(this.state.day) * 60 * 60 * 24
-              ).format('DD/MM/YY')}
-            </div>
-          </ReactSlider>
-        </ScrollArea>
+        {this.slider()}
       </div>
     )
   }
