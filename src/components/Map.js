@@ -65,7 +65,7 @@ class Map extends React.Component {
     if (
       nextProps.map.view === 'history' &&
       (
-        this.props.map.view !== 'history' ||
+        !this.props.history.data.length ||
         nextProps.map.history.year !== this.props.map.history.year ||
         nextProps.map.history.month !== this.props.map.history.month ||
         nextProps.map.history.day !== this.props.map.history.day

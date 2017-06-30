@@ -32,13 +32,15 @@ const exProps = {
 }
 
 export class SidebarHistoryTab extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.startDate = moment('2010-08-01').startOf('day').format('X')
     let endDate = moment().subtract(1, 'day').startOf('day').format('X')
     this.days = (endDate - this.startDate) / (60 * 60 * 24)
+    let dataDate = moment(props.dataDate.year + '-' + props.dataDate.month + '-' + props.dataDate.day, 'YYYY-M-D')
+      .startOf('day').format('X')
     this.state = {
-      day: this.days
+      day: (dataDate - this.startDate) / (60 * 60 * 24)
     }
   }
   render () {
@@ -119,6 +121,11 @@ export class SidebarHistoryTab extends React.Component {
 
 SidebarHistoryTab.propTypes = {
   quantity: PropTypes.string.isRequired,
+  dataDate: PropTypes.shape({
+    year: PropTypes.number | PropTypes.string,
+    month: PropTypes.number | PropTypes.string,
+    day: PropTypes.number | PropTypes.string
+  }),
   changeHistoryQuantity: PropTypes.func.isRequired,
   changeHistoryDate: PropTypes.func.isRequired
 }

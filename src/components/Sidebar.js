@@ -19,7 +19,10 @@ export class Sidebar extends React.Component {
         quantity: PropTypes.string
       }),
       history: PropTypes.shape({
-        quantity: PropTypes.string
+        quantity: PropTypes.string,
+        year: PropTypes.number | PropTypes.string,
+        month: PropTypes.number | PropTypes.string,
+        day: PropTypes.number | PropTypes.string
       })
     })
   }
@@ -46,6 +49,11 @@ export class Sidebar extends React.Component {
               quantity={this.props.map.history.quantity}
               changeHistoryQuantity={this.props.changeHistoryQuantity}
               changeHistoryDate={this.props.changeHistoryDate}
+              dataDate={{
+                year: this.props.map.history.year,
+                month: this.props.map.history.month,
+                day: this.props.map.history.day
+              }}
             />
           </TabPanel>
           <TabPanel>
