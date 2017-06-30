@@ -1,13 +1,32 @@
+import { isOffline } from 'utils/map'
 // API
 
-const initialRealtimeData = []
+const initialRealtimeData = { data: [], stations: [] }
 
 export function realtimeDataTransformer (data = initialRealtimeData, prevData, action) {
   if (action && (
-    action.type === '@@redux-api@realtimeData_success'
+    action.type === '@@redux-api@realtime_success'
   )) {
     // ready to do custom transformations
-    return data || initialRealtimeData
+    if (data) {
+      return {
+        data: data.map((obj) => (
+          {
+            ...obj,
+            wind: obj.wind_strength + ' ' + obj.wind_dir_text,
+            wind_max: obj.wind_strength_max + ' ' + obj.wind_dir_max_text
+          }
+        )),
+        stations: data.map((obj) => (
+          {
+            ...obj.station,
+            offline: isOffline(obj)
+          }
+        ))
+      }
+    } else {
+      return initialRealtimeData
+    }
   }
   return data
 }

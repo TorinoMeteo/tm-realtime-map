@@ -3,13 +3,13 @@
   background: $sidebar-bg;
   color: $sidebar-color;
   height: 100%;
-  left: -300px;
+  left: -340px;
   overflow: auto;
   padding-bottom: 2.8rem;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
-  width: 300px;
+  width: 340px;
   z-index: 100;
 }
 
@@ -41,6 +41,7 @@
   border: 1px solid $sidebar-btn-controller-border-color;
   color: $sidebar-btn-controller-color;
   cursor: pointer;
+  margin: 0;
 
   &.active {
     background: $sidebar-btn-controller-active-bg;

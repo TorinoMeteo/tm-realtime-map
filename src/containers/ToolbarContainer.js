@@ -4,7 +4,8 @@ import { toggleSidebar } from 'store/ui'
 
 const mapStateToProps = (state) => {
   return {
-    map: state.map
+    map: state.map,
+    stations: state.realtime.data.stations
   }
 }
 

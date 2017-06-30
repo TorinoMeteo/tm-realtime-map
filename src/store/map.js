@@ -17,7 +17,8 @@ export function changeQuantity (quantity) {
 // Reducer
 // ------------------------------------
 const initialState = {
-  quantity: 'temperature'
+  quantity: 'temperature',
+  view: 'live'
 }
 export default function mapReducer (state = initialState, action) {
   return action.type === QUANTITY_CHANGED

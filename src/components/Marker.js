@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Marker
 } from 'react-google-maps'
-import { blue2red } from 'utils/colors'
+import { blue2red, white2blue } from 'utils/colors'
 import { COLOR_SCALE } from 'config/scales'
 import { isOffline } from 'utils/map'
 
@@ -11,8 +11,8 @@ let dftIcon = {
   // path: 'M 0, 0 m -18, 0 a 18,18 0 1,0 36,0 a 18,18 0 1,0 -36,0', // circle
   path: 'M-24 -16 H 24 V 16 H -24 L -24 -16', // square
   fillOpacity: 1,
-  strokeColor: 'white',
-  strokeWeight: 3
+  fillColor: 'white',
+  strokeWeight: 6
 }
 
 const TmMarker = (props) => {
@@ -28,10 +28,11 @@ const TmMarker = (props) => {
       fillColor: 'white'
     }
   } else {
+    let strokeFunc = /(rain)|(wind)/.test(props.quantity) ? white2blue : blue2red
     icon = {
       ...dftIcon,
       // limit min and max to appreciate scale variability
-      fillColor: blue2red(
+      strokeColor: strokeFunc(
         Math.min(
           Math.max(
             value,
@@ -49,7 +50,7 @@ const TmMarker = (props) => {
     <Marker
       position={{ lat: lat, lng: lng }}
       label={{
-        text: `${isNaN(value) || isOffline(props.obj) ? 'N.D.' : value}`,
+        text: `${isNaN(value) || isOffline(props.obj) ? 'N.D.' : props.obj[props.quantity]}`,
         fontSize: '12px',
         color: '#000'
       }}

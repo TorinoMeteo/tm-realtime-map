@@ -7,9 +7,25 @@ export const COLOR_SCALE = {
     min: 900,
     max: 1100
   },
+  'relative_humidity': {
+    min: 50,
+    max: 100
+  },
   'dewpoint': {
     min: 0,
     max: 40
+  },
+  'rain_rate': {
+    min: 0,
+    max: 50
+  },
+  'rain': {
+    min: 0,
+    max: 400
+  },
+  'wind': {
+    min: 0,
+    max: 250
   }
 }
 
@@ -19,3 +35,6 @@ COLOR_SCALE.pressure_max = COLOR_SCALE.pressure
 COLOR_SCALE.pressure_min = COLOR_SCALE.pressure
 COLOR_SCALE.dewpoint_max = COLOR_SCALE.dewpoint
 COLOR_SCALE.dewpoint_min = COLOR_SCALE.dewpoint
+COLOR_SCALE.relative_humidity_max = COLOR_SCALE.relative_humidity
+COLOR_SCALE.relative_humidity_min = COLOR_SCALE.relative_humidity
+COLOR_SCALE.wind_max = COLOR_SCALE.wind

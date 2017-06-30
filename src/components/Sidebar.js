@@ -15,13 +15,15 @@ export class Sidebar extends React.Component {
   }
 
   render () {
-    let left = this.props.ui.displaySidebar ? 0 : '-300px'
+    let left = this.props.ui.displaySidebar ? 0 : '-340px'
     return (
       <nav className='nav-sidebar' style={{ left: left }}>
         <Tabs>
           <TabList>
-            <Tab>Realtime</Tab>
+            <Tab>Live</Tab>
             <Tab>Storico</Tab>
+            <Tab>Webcam</Tab>
+            <Tab>Info</Tab>
           </TabList>
           <TabPanel>
             <SidebarRealtimeTab
@@ -31,6 +33,12 @@ export class Sidebar extends React.Component {
           </TabPanel>
           <TabPanel>
             STORICO
+          </TabPanel>
+          <TabPanel>
+            Webcam
+          </TabPanel>
+          <TabPanel>
+            Info
           </TabPanel>
         </Tabs>
       </nav>

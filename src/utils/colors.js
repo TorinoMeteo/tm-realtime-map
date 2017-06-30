@@ -1,5 +1,19 @@
 import convert from 'color-convert'
 
+export const white2blue = (v, max, min) => {
+  let fromMin = v - min
+  let scale = 100 / (max - min)
+  let n = parseInt(fromMin * scale)
+
+  let startTriplet = convert.rgb.hsv(255, 255, 255)
+  let endTriplet = convert.rgb.hsv(0, 0, 255)
+
+  let hsvTriplet = colorTransition(n, 100, startTriplet, endTriplet)
+  let triplet = convert.hsv.rgb(hsvTriplet)
+
+  return 'rgba(' + triplet[0] + ', ' + triplet[1] + ', ' + triplet[2] + ', 1)'
+}
+
 export const blue2red = (v, max, min) => {
   let fromMin = v - min
   let scale = 100 / (max - min)
