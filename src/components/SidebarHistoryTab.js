@@ -71,6 +71,20 @@ export class SidebarHistoryTab extends React.Component {
                 </li>
               )
             })}
+            <li key='history-rain'>
+              <i className='wi wi-umbrella' />
+              Precipitazione
+              <ul className='depth-1'>
+                <li>
+                  <a
+                    onClick={() => changeHistoryQuantity('rain')}
+                    className={'btn btn-controller btn-sm' +
+                      (quantity === 'rain' ? ' active' : '')}>
+                      giornaliera
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
         <ScrollArea className='scroll-area'>

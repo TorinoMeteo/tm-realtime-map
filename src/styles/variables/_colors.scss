@@ -23,5 +23,5 @@ $tabs-border-color: #555;
 $slider-color: #ddd;
 $slider-bar-color: #00bcd4;
 $slider-tap-color: rgba(0, 0, 0, 0);
-$slider-handle-color: #fff;
-$slider-handle-bg: #ff4081;
+$slider-handle-color: #000;
+$slider-handle-bg: darken($sidebar-btn-controller-active-bg, 10%);
