@@ -15,7 +15,7 @@ let dftIcon = {
   strokeWeight: 6
 }
 
-const TmMarker = (props) => {
+const LiveMarker = (props) => {
   const lat = parseFloat(props.obj.station.lat)
   const lng = parseFloat(props.obj.station.lng)
 
@@ -59,9 +59,9 @@ const TmMarker = (props) => {
   )
 }
 
-TmMarker.propTypes = {
+LiveMarker.propTypes = {
   obj: PropTypes.object.isRequired,
   quantity: PropTypes.string.isRequired
 }
 
-export default TmMarker
+export default LiveMarker

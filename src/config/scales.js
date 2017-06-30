@@ -31,10 +31,13 @@ export const COLOR_SCALE = {
 
 COLOR_SCALE.temperature_max = COLOR_SCALE.temperature
 COLOR_SCALE.temperature_min = COLOR_SCALE.temperature
+COLOR_SCALE.temperature_mean = COLOR_SCALE.temperature
 COLOR_SCALE.pressure_max = COLOR_SCALE.pressure
 COLOR_SCALE.pressure_min = COLOR_SCALE.pressure
+COLOR_SCALE.pressure_mean = COLOR_SCALE.pressure
 COLOR_SCALE.dewpoint_max = COLOR_SCALE.dewpoint
 COLOR_SCALE.dewpoint_min = COLOR_SCALE.dewpoint
 COLOR_SCALE.relative_humidity_max = COLOR_SCALE.relative_humidity
 COLOR_SCALE.relative_humidity_min = COLOR_SCALE.relative_humidity
+COLOR_SCALE.relative_humidity_mean = COLOR_SCALE.relative_humidity
 COLOR_SCALE.wind_max = COLOR_SCALE.wind

@@ -31,6 +31,18 @@ export function realtimeDataTransformer (data = initialRealtimeData, prevData, a
   return data
 }
 
+const initialHistoricData = []
+
+export function historicDataTransformer (data = initialHistoricData, prevData, action) {
+  if (action && (
+    action.type === '@@redux-api@history_success'
+  )) {
+    // ready to do custom transformations
+    return data || initialHistoricData
+  }
+  return data
+}
+
 // ------------------------------------
 // Constants
 // ------------------------------------

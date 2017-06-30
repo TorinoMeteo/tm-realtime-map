@@ -1,6 +1,11 @@
 import { connect } from 'react-redux'
 import Sidebar from 'components/Sidebar'
-import { changeQuantity } from 'store/map'
+import {
+  changeLiveQuantity,
+  changeHistoryQuantity,
+  changeView,
+  changeHistoryDate
+} from 'store/map'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,8 +16,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeQuantity: (quantity) => {
-      dispatch(changeQuantity(quantity))
+    changeLiveQuantity: (quantity) => {
+      dispatch(changeLiveQuantity(quantity))
+    },
+    changeHistoryQuantity: (quantity) => {
+      dispatch(changeHistoryQuantity(quantity))
+    },
+    changeHistoryDate: (year, month, day) => {
+      dispatch(changeHistoryDate(year, month, day))
+    },
+    changeView: (view) => {
+      dispatch(changeView(view))
     }
   }
 }

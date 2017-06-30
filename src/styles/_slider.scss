@@ -1,0 +1,36 @@
+// scss-lint:disable ImportantRule
+body {
+  -webkit-tap-highlight-color: $slider-tap-color;
+}
+
+.slider {
+  background-color: $slider-color;
+  height: 4000px;
+  margin: 0 20px;
+  width: 4px;
+}
+
+.handle {
+  background-color: $slider-handle-bg;
+  border-radius: 50%;
+  color: $slider-handle-color;
+  cursor: pointer;
+  font-size: .8em;
+  height: 44px;
+  left: -20px;
+  line-height: 44px;
+  text-align: center;
+  width: 44px;
+}
+
+.bar-1 {
+  background: $slider-bar-color;
+  height: 4px;
+}
+
+.scroll-area {
+  bottom: 0;
+  left: 290px;
+  position: absolute !important;
+  top: 50px;
+}

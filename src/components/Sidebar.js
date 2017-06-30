@@ -2,15 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import SidebarRealtimeTab from 'components/SidebarRealtimeTab'
+import SidebarHistoryTab from 'components/SidebarHistoryTab'
 
 export class Sidebar extends React.Component {
   static propTypes = {
-    changeQuantity: PropTypes.func.isRequired,
+    changeLiveQuantity: PropTypes.func.isRequired,
+    changeHistoryQuantity: PropTypes.func.isRequired,
+    changeHistoryDate: PropTypes.func.isRequired,
+    changeView: PropTypes.func.isRequired,
     ui: PropTypes.shape({
       displaySidebar: PropTypes.bool
     }),
     map: PropTypes.shape({
-      quantity: PropTypes.string
+      view: PropTypes.string.isRequired,
+      live: PropTypes.shape({
+        quantity: PropTypes.string
+      }),
+      history: PropTypes.shape({
+        quantity: PropTypes.string
+      })
     })
   }
 
@@ -20,19 +30,23 @@ export class Sidebar extends React.Component {
       <nav className='nav-sidebar' style={{ left: left }}>
         <Tabs>
           <TabList>
-            <Tab>Live</Tab>
-            <Tab>Storico</Tab>
+            <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
+            <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
             <Tab>Webcam</Tab>
             <Tab>Info</Tab>
           </TabList>
           <TabPanel>
             <SidebarRealtimeTab
-              quantity={this.props.map.quantity}
-              changeQuantity={this.props.changeQuantity}
+              quantity={this.props.map.live.quantity}
+              changeLiveQuantity={this.props.changeLiveQuantity}
             />
           </TabPanel>
           <TabPanel>
-            STORICO
+            <SidebarHistoryTab
+              quantity={this.props.map.history.quantity}
+              changeHistoryQuantity={this.props.changeHistoryQuantity}
+              changeHistoryDate={this.props.changeHistoryDate}
+            />
           </TabPanel>
           <TabPanel>
             Webcam

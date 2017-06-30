@@ -46,7 +46,6 @@ export default function adapterFetch (fetch) {
 }
 
 function toJSON (resp) {
-  console.log('tojson')
   return resp.text().then(function (data) {
     try {
       return JSON.parse(data)

@@ -33,7 +33,7 @@ const exProps = {
 }
 
 export const SidebarRealtimeTab = (props) => {
-  let changeQuantity = props.changeQuantity // avoid warnings
+  let changeLiveQuantity = props.changeLiveQuantity // avoid warnings
   let quantity = props.quantity
   return (
     <div>
@@ -48,7 +48,7 @@ export const SidebarRealtimeTab = (props) => {
                   return (
                     <li key={q + ex}>
                       <a
-                        onClick={() => changeQuantity(q + (ex === 'current' ? '' : '_' + ex))}
+                        onClick={() => changeLiveQuantity(q + (ex === 'current' ? '' : '_' + ex))}
                         className={'btn btn-controller btn-sm' +
                           (quantity === q + (ex === 'current' ? '' : '_' + ex) ? ' active' : '')}>
                         {exProps[ex].label}
@@ -66,7 +66,7 @@ export const SidebarRealtimeTab = (props) => {
           <ul className='depth-1'>
             <li>
               <a
-                onClick={() => changeQuantity('rain_rate')}
+                onClick={() => changeLiveQuantity('rain_rate')}
                 className={'btn btn-controller btn-sm' +
                   (quantity === 'rain_rate' ? ' active' : '')}>
                   corrente
@@ -80,7 +80,7 @@ export const SidebarRealtimeTab = (props) => {
           <ul className='depth-1'>
             <li>
               <a
-                onClick={() => changeQuantity('rain')}
+                onClick={() => changeLiveQuantity('rain')}
                 className={'btn btn-controller btn-sm' +
                   (quantity === 'rain' ? ' active' : '')}>
                   odierna
@@ -94,7 +94,7 @@ export const SidebarRealtimeTab = (props) => {
           <ul className='depth-1'>
             <li>
               <a
-                onClick={() => changeQuantity('wind')}
+                onClick={() => changeLiveQuantity('wind')}
                 className={'btn btn-controller btn-sm' +
                   (quantity === 'wind' ? ' active' : '')}>
                   corrente
@@ -102,7 +102,7 @@ export const SidebarRealtimeTab = (props) => {
             </li>
             <li>
               <a
-                onClick={() => changeQuantity('wind_max')}
+                onClick={() => changeLiveQuantity('wind_max')}
                 className={'btn btn-controller btn-sm' +
                   (quantity === 'wind_max' ? ' active' : '')}>
                   massimo
@@ -117,7 +117,7 @@ export const SidebarRealtimeTab = (props) => {
 
 SidebarRealtimeTab.propTypes = {
   quantity: PropTypes.string.isRequired,
-  changeQuantity: PropTypes.func.isRequired
+  changeLiveQuantity: PropTypes.func.isRequired
 }
 
 export default SidebarRealtimeTab

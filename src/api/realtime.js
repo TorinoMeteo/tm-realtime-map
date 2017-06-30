@@ -4,7 +4,7 @@ import adapterFetch from 'lib/adapters/fetch'
 // import adapterFetch from "redux-api/lib/adapters/fetch"
 import config from 'config'
 import { addBaseApiUrl } from 'decorators/Api'
-import { realtimeDataTransformer } from 'store/realtime'
+import { realtimeDataTransformer, historicDataTransformer } from 'store/realtime'
 
 /**
  * Realtime API endpoints
@@ -19,6 +19,12 @@ export default reduxApi(addBaseApiUrl(
       options: config.api.headers,
       reducerName: 'realtime',
       transformer: realtimeDataTransformer
+    },
+    historicData: {
+      url: 'realtime/history/:year/:month/:day/',
+      options: config.api.headers,
+      reducerName: 'history',
+      transformer: historicDataTransformer
     }
   }
 ))
