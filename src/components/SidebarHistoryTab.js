@@ -47,13 +47,51 @@ export class SidebarHistoryTab extends React.Component {
       this.years.push(y)
     }
     this.windowWidth = window.innerWidth
+    this.scroll = null
+    console.log('DIO', 'called constructor')
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (
+      nextProps.dataDate.year !== this.props.dataDate.year ||
+      nextProps.dataDate.month !== this.props.dataDate.month ||
+      nextProps.dataDate.day !== this.props.dataDate.day
+    ) {
+      let dataDate = moment(
+        nextProps.dataDate.year + '-' + nextProps.dataDate.month + '-' + nextProps.dataDate.day, 'YYYY-M-D'
+      ).endOf('day').format('X')
+      let day = Math.floor((dataDate - this.startDate) / (60 * 60 * 24))
+      // let day = (dataDate - this.startDate) / (60 * 60 * 24)
+      // scroll control only when date was changed through calendar
+      // => actual day different from state day
+      if (this.scroll && day !== this.state.day) {
+        console.log('DIO', 'scrollto', 4000 / this.days * (this.days - day), this.state.day, day)
+        let scrollTo = 4000 / this.days * (this.days - day) - 20
+        this.scroll.scrollArea.scrollYTo(scrollTo > 0 ? scrollTo : 0)
+      }
+      this.setState({
+        day: day
+      })
+    }
   }
 
   slider () {
+    // on mobile devices slider + scrolling doesn't work properly
+    // use datepicker placed as toolbar title
+    if (this.windowWidth < 900) {
+      return null
+    }
+
+    console.log('DIO', 'day', this.state.day)
+
     let changeHistoryDate = this.props.changeHistoryDate
+    // unique key is given to have the slider redraw itself when date is changed
+    // from toolbar calendar
+    let key = 'key-' + this.props.dataDate.year + this.props.dataDate.month + this.props.dataDate.day
     return (
-      <ScrollArea className='scroll-area'>
+      <ScrollArea ref={(ref) => { this.scroll = ref }} className='scroll-area'>
         <ReactSlider
+          key={key}
           min={0}
           max={this.days}
           step={1}
@@ -66,7 +104,6 @@ export class SidebarHistoryTab extends React.Component {
           onAfterChange={(value) => {
             this.setState({ day: value })
             let date = moment.unix(parseInt(this.startDate) + (parseInt(value) * 60 * 60 * 24))
-            console.log(date.format('Y'), date.format('M'), date.format('D'))
             changeHistoryDate(date.format('Y'), date.format('M'), date.format('D'))
           }}
         >

@@ -49,3 +49,26 @@
     color: $sidebar-btn-controller-active-color !important;
   }
 }
+
+.sidebar-webcams-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    border-bottom: 1px solid $sidebar-list-border-bottom-color;
+    border-top: 1px solid $sidebar-list-border-top-color;
+    padding: .5rem 1rem;
+
+    &.active {
+      border-left: 5px solid $sidebar-list-active-border-color;
+    }
+
+    &:first-child {
+      border-top-width: 0;
+    }
+  }
+}
+
+.sidebar-content {
+  padding: .5rem 1rem;
+}

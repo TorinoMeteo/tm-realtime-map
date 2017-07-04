@@ -5,7 +5,7 @@ const config = {
   api: {},
   version: '1.0.0.alpha.1',
   map: {
-    offlineInterval: 30 // minutes
+    offlineInterval: 70 // minutes
   }
 }
 

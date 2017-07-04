@@ -86,6 +86,22 @@ export const SidebarRealtimeTab = (props) => {
                   odierna
               </a>
             </li>
+            <li>
+              <a
+                onClick={() => changeLiveQuantity('rain_month')}
+                className={'btn btn-controller btn-sm' +
+                  (quantity === 'rain_month' ? ' active' : '')}>
+                  mensile
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={() => changeLiveQuantity('rain_year')}
+                className={'btn btn-controller btn-sm' +
+                  (quantity === 'rain_year' ? ' active' : '')}>
+                  annuale
+              </a>
+            </li>
           </ul>
         </li>
         <li key='wind'>

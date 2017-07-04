@@ -55,13 +55,15 @@ const LiveMarker = (props) => {
         color: '#000'
       }}
       icon={icon}
+      onClick={props.onClick}
     />
   )
 }
 
 LiveMarker.propTypes = {
   obj: PropTypes.object.isRequired,
-  quantity: PropTypes.string.isRequired
+  quantity: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default LiveMarker

@@ -7,6 +7,8 @@ export const LIVE_QUANTITY_CHANGED = 'LIVE_QUANTITY_CHANGED'
 export const HISTORY_QUANTITY_CHANGED = 'HISTORY_QUANTITY_CHANGED'
 export const HISTORY_DATE_CHANGED = 'HISTORY_DATE_CHANGED'
 export const VIEW_CHANGED = 'VIEW_CHANGED'
+export const WEBCAM_SELECTED = 'WEBCAM_SELECTED'
+export const LIVE_STATION_SELECTED = 'LIVE_STATION_SELECTED'
 
 // ------------------------------------
 // Actions
@@ -39,6 +41,20 @@ export function changeView (view) {
   }
 }
 
+export function selectWebcam (webcam) {
+  return {
+    type    : WEBCAM_SELECTED,
+    payload : webcam
+  }
+}
+
+export function selectLiveStation (stationData) {
+  return {
+    type    : LIVE_STATION_SELECTED,
+    payload : stationData
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -46,13 +62,17 @@ const yesterday = moment().subtract(1, 'day')
 const initialState = {
   view: 'live',
   live: {
-    quantity: 'temperature'
+    quantity: 'temperature',
+    selected: null
   },
   history: {
     quantity: 'temperature_mean',
     year: yesterday.format('Y'),
     month: yesterday.format('M'),
     day: yesterday.format('D')
+  },
+  webcams: {
+    selected: null
   }
 }
 export default function mapReducer (state = initialState, action) {
@@ -64,6 +84,10 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, view: action.payload }
   } else if (action.type === HISTORY_DATE_CHANGED) {
     return { ...state, history: { ...state.history, ...action.payload } }
+  } else if (action.type === WEBCAM_SELECTED) {
+    return { ...state, webcams: { ...state.webcams, selected: action.payload } }
+  } else if (action.type === LIVE_STATION_SELECTED) {
+    return { ...state, live: { ...state.live, selected: action.payload } }
   }
 
   return state

@@ -39,3 +39,7 @@ body {
 .scrollarea-content {
   margin-right: 18px !important;
 }
+
+.scrollarea .scrollbar-container.vertical .scrollbar {
+  background: $scrollbar-bg !important;
+}

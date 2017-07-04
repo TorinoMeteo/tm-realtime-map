@@ -1,16 +1,19 @@
 import { connect } from 'react-redux'
 import Sidebar from 'components/Sidebar'
+import { toggleSidebar } from 'store/ui'
 import {
   changeLiveQuantity,
   changeHistoryQuantity,
   changeView,
-  changeHistoryDate
+  changeHistoryDate,
+  selectWebcam
 } from 'store/map'
 
 const mapStateToProps = (state) => {
   return {
     ui: state.ui,
-    map: state.map
+    map: state.map,
+    webcams: state.webcams
   }
 }
 
@@ -27,6 +30,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     changeView: (view) => {
       dispatch(changeView(view))
+    },
+    selectWebcam: (webcam) => {
+      dispatch(selectWebcam(webcam))
+    },
+    toggleSidebar: () => {
+      dispatch(toggleSidebar())
     }
   }
 }

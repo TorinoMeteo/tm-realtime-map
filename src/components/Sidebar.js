@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import SidebarRealtimeTab from 'components/SidebarRealtimeTab'
 import SidebarHistoryTab from 'components/SidebarHistoryTab'
+import SidebarWebcamTab from 'components/SidebarWebcamTab'
+import SidebarInfoTab from 'components/SidebarInfoTab'
 
 export class Sidebar extends React.Component {
   static propTypes = {
@@ -10,6 +12,8 @@ export class Sidebar extends React.Component {
     changeHistoryQuantity: PropTypes.func.isRequired,
     changeHistoryDate: PropTypes.func.isRequired,
     changeView: PropTypes.func.isRequired,
+    selectWebcam: PropTypes.func.isRequired,
+    toggleSidebar: PropTypes.func.isRequired,
     ui: PropTypes.shape({
       displaySidebar: PropTypes.bool
     }),
@@ -23,7 +27,16 @@ export class Sidebar extends React.Component {
         year: PropTypes.number | PropTypes.string,
         month: PropTypes.number | PropTypes.string,
         day: PropTypes.number | PropTypes.string
+      }),
+      webcams: PropTypes.shape({
+        selected: PropTypes.object
       })
+    }),
+    webcams: PropTypes.shape({
+      sync: PropTypes.bool,
+      syncing: PropTypes.bool,
+      loading: PropTypes.bool,
+      data: PropTypes.array
     })
   }
 
@@ -35,7 +48,7 @@ export class Sidebar extends React.Component {
           <TabList>
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
-            <Tab>Webcam</Tab>
+            <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
             <Tab>Info</Tab>
           </TabList>
           <TabPanel>
@@ -57,10 +70,15 @@ export class Sidebar extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            Webcam
+            <SidebarWebcamTab
+              webcams={this.props.webcams.data}
+              selected={this.props.map.webcams.selected}
+              onSelectWebcam={this.props.selectWebcam}
+              toggleSidebar={this.props.toggleSidebar}
+            />
           </TabPanel>
           <TabPanel>
-            Info
+            <SidebarInfoTab />
           </TabPanel>
         </Tabs>
       </nav>

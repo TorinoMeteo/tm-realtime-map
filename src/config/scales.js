@@ -17,11 +17,19 @@ export const COLOR_SCALE = {
   },
   'rain_rate': {
     min: 0,
-    max: 50
+    max: 500
   },
   'rain': {
     min: 0,
-    max: 400
+    max: 200
+  },
+  'rain_month': {
+    min: 0,
+    max: 500
+  },
+  'rain_year': {
+    min: 0,
+    max: 3000
   },
   'wind': {
     min: 0,

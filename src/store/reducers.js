@@ -3,6 +3,7 @@ import locationReducer from './location'
 import uiReducer from './ui'
 import mapReducer from './map'
 import RealtimeApi from 'api/realtime'
+import WebcamsApi from 'api/webcams'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -10,6 +11,7 @@ export const makeRootReducer = (asyncReducers) => {
     ui: uiReducer,
     map: mapReducer,
     ...RealtimeApi.reducers,
+    ...WebcamsApi.reducers,
     ...asyncReducers
   })
 }

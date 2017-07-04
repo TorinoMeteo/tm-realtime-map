@@ -25,3 +25,12 @@ $slider-bar-color: #00bcd4;
 $slider-tap-color: rgba(0, 0, 0, 0);
 $slider-handle-color: #000;
 $slider-handle-bg: darken($sidebar-btn-controller-active-bg, 10%);
+// scrollbar
+$scrollbar-bg: #fff;
+// lists
+$sidebar-list-border-top-color: lighten($sidebar-bg, 5%);
+$sidebar-list-border-bottom-color: darken($sidebar-bg, 5%);
+$sidebar-list-active-border-color: #fff800;
+// modal
+$modal-overlay-bg: rgba(0, 0, 0, .7);
+$modal-bg: #fff;
