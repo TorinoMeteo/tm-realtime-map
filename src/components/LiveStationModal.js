@@ -20,7 +20,7 @@ const LiveStationModal = (props) => {
     <Modal
       onRequestClose={props.onRequestClose}
       className='tm-modal'
-      contentLabel='Station\ Preview Modal'
+      contentLabel='Station Preview Modal'
       isOpen
     >
       <section className='tm-modal-content'>

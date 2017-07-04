@@ -74,7 +74,7 @@ class LiveMapClass extends React.Component {
 
 LiveMapClass.propTypes = {
   data: PropTypes.array,
-  viewData: PropTypes.string,
+  viewData: PropTypes.object,
   selectStation: PropTypes.func.isRequired
 }
 

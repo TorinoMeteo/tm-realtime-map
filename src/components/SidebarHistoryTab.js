@@ -48,7 +48,6 @@ export class SidebarHistoryTab extends React.Component {
     }
     this.windowWidth = window.innerWidth
     this.scroll = null
-    console.log('DIO', 'called constructor')
   }
 
   componentWillReceiveProps (nextProps) {
@@ -65,8 +64,7 @@ export class SidebarHistoryTab extends React.Component {
       // scroll control only when date was changed through calendar
       // => actual day different from state day
       if (this.scroll && day !== this.state.day) {
-        console.log('DIO', 'scrollto', 4000 / this.days * (this.days - day), this.state.day, day)
-        let scrollTo = 4000 / this.days * (this.days - day) - 20
+        let scrollTo = 4000 / this.days * (this.days - day) - 40
         this.scroll.scrollArea.scrollYTo(scrollTo > 0 ? scrollTo : 0)
       }
       this.setState({
@@ -81,8 +79,6 @@ export class SidebarHistoryTab extends React.Component {
     if (this.windowWidth < 900) {
       return null
     }
-
-    console.log('DIO', 'day', this.state.day)
 
     let changeHistoryDate = this.props.changeHistoryDate
     // unique key is given to have the slider redraw itself when date is changed

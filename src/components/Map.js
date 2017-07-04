@@ -61,7 +61,8 @@ class Map extends React.Component {
           containerElement={<div className='map-container' />}
           mapElement={<div className='map-canvas' />}
           data={this.props.history.data}
-          quantity={this.props.map.history.quantity}
+          viewData={this.props.map.history}
+          selectStation={this.props.selectHistoryStation}
         />
       )
     } else if (this.props.map.view === 'webcams') {
@@ -84,6 +85,7 @@ Map.propTypes = {
   fetchWebcamsData: PropTypes.func.isRequired,
   selectWebcam: PropTypes.func.isRequired,
   selectLiveStation: PropTypes.func.isRequired,
+  selectHistoryStation: PropTypes.func.isRequired,
   realtime: PropTypes.shape({
     sync: PropTypes.bool,
     syncing: PropTypes.bool,

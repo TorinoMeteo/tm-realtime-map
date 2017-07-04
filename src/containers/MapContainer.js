@@ -4,7 +4,8 @@ import RealtimeApi from 'api/realtime'
 import WebcamsApi from 'api/webcams'
 import {
   selectWebcam,
-  selectLiveStation
+  selectLiveStation,
+  selectHistoryStation
 } from 'store/map'
 
 const mapStateToProps = (state) => {
@@ -32,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectLiveStation: (stationData) => {
       dispatch(selectLiveStation(stationData))
+    },
+    selectHistoryStation: (stationData) => {
+      dispatch(selectHistoryStation(stationData))
     }
   }
 }

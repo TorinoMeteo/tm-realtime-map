@@ -54,13 +54,15 @@ const HistoryMarker = (props) => {
         color: '#000'
       }}
       icon={icon}
+      onClick={props.onClick}
     />
   )
 }
 
 HistoryMarker.propTypes = {
   obj: PropTypes.object.isRequired,
-  quantity: PropTypes.string.isRequired
+  quantity: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default HistoryMarker

@@ -9,6 +9,7 @@ export const HISTORY_DATE_CHANGED = 'HISTORY_DATE_CHANGED'
 export const VIEW_CHANGED = 'VIEW_CHANGED'
 export const WEBCAM_SELECTED = 'WEBCAM_SELECTED'
 export const LIVE_STATION_SELECTED = 'LIVE_STATION_SELECTED'
+export const HISTORY_STATION_SELECTED = 'HISTORY_STATION_SELECTED'
 
 // ------------------------------------
 // Actions
@@ -55,6 +56,13 @@ export function selectLiveStation (stationData) {
   }
 }
 
+export function selectHistoryStation (stationData) {
+  return {
+    type    : HISTORY_STATION_SELECTED,
+    payload : stationData
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -69,7 +77,8 @@ const initialState = {
     quantity: 'temperature_mean',
     year: yesterday.format('Y'),
     month: yesterday.format('M'),
-    day: yesterday.format('D')
+    day: yesterday.format('D'),
+    selected: null
   },
   webcams: {
     selected: null
@@ -88,6 +97,8 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, webcams: { ...state.webcams, selected: action.payload } }
   } else if (action.type === LIVE_STATION_SELECTED) {
     return { ...state, live: { ...state.live, selected: action.payload } }
+  } else if (action.type === HISTORY_STATION_SELECTED) {
+    return { ...state, history: { ...state.history, selected: action.payload } }
   }
 
   return state
