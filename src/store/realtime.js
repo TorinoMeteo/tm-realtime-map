@@ -43,6 +43,31 @@ export function historicDataTransformer (data = initialHistoricData, prevData, a
   return data
 }
 
+const initialRadarImages = {
+  live: [],
+  history: []
+}
+
+export function radarLiveImagesTransformer (data = initialRadarImages, prevData, action) {
+  if (action && (
+    action.type === '@@redux-api@radar_success'
+  )) {
+    // ready to do custom transformations
+    return { ...prevData, live: data }
+  }
+  return data
+}
+
+export function radarHistoryImagesTransformer (data = initialRadarImages, prevData, action) {
+  if (action && (
+    action.type === '@@redux-api@radar_success'
+  )) {
+    // ready to do custom transformations
+    return { ...prevData, history: data }
+  }
+  return data
+}
+
 // ------------------------------------
 // Constants
 // ------------------------------------

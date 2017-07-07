@@ -8,21 +8,25 @@ import Modal from 'react-modal'
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import WebcamMarker from 'components/WebcamMarker'
 
-class HistoryMapClass extends React.Component {
+class WebcamMapClass extends React.Component {
   constructor (props) {
     super(props)
     this.fitBoundsEnabled = true
     this.gmap = null
-    this.state = {
-      zoom: 8,
-      center: { lat: 45.397, lng: 7.644 }
-    }
+  }
+
+  // set viewport for other maps!!
+  componentWillUnmount () {
+    this.props.changeMapViewport({
+      center: this.gmap.getCenter(),
+      zoom: this.gmap.getZoom()
+    })
   }
 
   render () {
     let modal = null
-    if (this.props.viewData.selected) {
-      let w = this.props.viewData.selected
+    if (this.props.mapData.webcams.selected) {
+      let w = this.props.mapData.webcams.selected
       modal = (
         <Modal
           onRequestClose={() => this.props.selectWebcam(null)}
@@ -42,21 +46,9 @@ class HistoryMapClass extends React.Component {
       <div>
         {modal}
         <GoogleMap
-          zoom={this.state.zoom}
-          center={this.state.center}
+          defaultZoom={this.props.mapData.zoom}
+          defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
-          onZoomChanged={() => this.setState({ zoom: this.gmap.getZoom() })}
-          onBoundsChanged={() => this.setState({ center: this.gmap.getCenter() })}
-          onTilesLoaded={() => {
-            if (this.fitBoundsEnabled) {
-              const newBounds = new google.maps.LatLngBounds()
-              this.props.data.forEach((obj, index) => {
-                newBounds.extend(new google.maps.LatLng(obj.latitude, obj.longitude))
-              })
-              this.gmap.fitBounds(newBounds)
-              this.fitBoundsEnabled = false
-            }
-          }}
         >
           <MarkerClusterer
             averageCenter
@@ -79,10 +71,18 @@ class HistoryMapClass extends React.Component {
   }
 }
 
-HistoryMapClass.propTypes = {
+WebcamMapClass.propTypes = {
   data: PropTypes.array,
-  viewData: PropTypes.object,
-  selectWebcam: PropTypes.func.isRequired
+  mapData: PropTypes.shape({
+    webcams: PropTypes.shape({
+      selected: PropTypes.object
+    }),
+    center: PropTypes.object.isRequired,
+    zoom: PropTypes.number.isRequired,
+    boundFit: PropTypes.bool
+  }),
+  selectWebcam: PropTypes.func.isRequired,
+  changeMapViewport: PropTypes.func.isRequired
 }
 
-export default withGoogleMap(HistoryMapClass)
+export default withGoogleMap(WebcamMapClass)

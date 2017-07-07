@@ -17,6 +17,7 @@ class SidebarWebcamTab extends React.Component {
               <li
                 className={this.props.selected && this.props.selected.id === w.id ? 'active' : ''}
                 style={{ cursor: 'pointer' }}
+                key={w.slug}
                 onClick={() => { this.props.onSelectWebcam(w) }}
               >{w.name}</li>
             )

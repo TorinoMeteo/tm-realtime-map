@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactSlider from 'react-slider'
 import ScrollArea from 'react-scrollbar'
 import moment from 'moment'
+import HistoryRadarControllerContainer from 'containers/HistoryRadarControllerContainer'
 
 const qProps = {
   temperature: {
@@ -85,7 +86,7 @@ export class SidebarHistoryTab extends React.Component {
     // from toolbar calendar
     let key = 'key-' + this.props.dataDate.year + this.props.dataDate.month + this.props.dataDate.day
     return (
-      <ScrollArea ref={(ref) => { this.scroll = ref }} className='scroll-area'>
+      <ScrollArea ref={(ref) => { this.scroll = ref }} className='scroll-area time-travel-slider'>
         <ReactSlider
           key={key}
           min={0}
@@ -117,7 +118,7 @@ export class SidebarHistoryTab extends React.Component {
     let changeHistoryQuantity = this.props.changeHistoryQuantity
     let quantity = this.props.quantity
     return (
-      <div>
+      <div className='sidebar-history-tab'>
         <div style={{ position: 'fixed' }}>
           <ul className='sidebar-quantity-list depth-0'>
             {['temperature', 'pressure', 'relative_humidity'].map((q) => {
@@ -157,6 +158,11 @@ export class SidebarHistoryTab extends React.Component {
               </ul>
             </li>
           </ul>
+          <hr />
+          <div className='sidebar-content'>
+            <h2>Radar</h2>
+            <HistoryRadarControllerContainer />
+          </div>
         </div>
         {this.slider()}
       </div>

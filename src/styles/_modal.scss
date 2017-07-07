@@ -33,6 +33,11 @@
     right: 10px;
     top: 10px;
   }
+
+  &.tm-modal-sm {
+    max-width: 90%;
+    width: 600px;
+  }
 }
 
 .tm-modal-content {

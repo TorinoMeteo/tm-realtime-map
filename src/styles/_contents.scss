@@ -1,0 +1,59 @@
+.table-modal-data {
+  border-top: 0;
+  width: 100%;
+
+  td {
+    padding: 1rem;
+    white-space: nowrap;
+  }
+}
+
+.modal-temperature {
+  font-size: 2rem;
+}
+
+.modal-temperature-max {
+  color: $temperature-max-color;
+}
+
+.modal-temperature-min {
+  color: $temperature-min-color;
+}
+
+.modal-station-main {
+  background: $modal-station-main-bg;
+  border: 1px solid $modal-station-main-border-color;
+  margin-bottom: 1rem;
+  padding: 1rem;
+
+  .btn-detail {
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+}
+
+.modal-station-datetime {
+  background: $modal-station-main-border-color;
+  color: $white;
+  margin-bottom: 0;
+  padding: 1rem;
+}
+
+.modal-icon-expand {
+  margin-bottom: 0;
+
+  i {
+    cursor: pointer;
+    font-size: 3rem;
+
+    + i {
+      float: right;
+    }
+  }
+}
+
+.tm-modal-content {
+  .img-margin-bottom {
+    margin-bottom: 1rem;
+  }
+}

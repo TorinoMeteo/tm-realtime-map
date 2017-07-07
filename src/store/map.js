@@ -1,4 +1,5 @@
 import moment from 'moment'
+import * as Db from 'utils/db'
 
 // ------------------------------------
 // Constants
@@ -10,6 +11,18 @@ export const VIEW_CHANGED = 'VIEW_CHANGED'
 export const WEBCAM_SELECTED = 'WEBCAM_SELECTED'
 export const LIVE_STATION_SELECTED = 'LIVE_STATION_SELECTED'
 export const HISTORY_STATION_SELECTED = 'HISTORY_STATION_SELECTED'
+export const VIEWPORT_CHANGED = 'VIEWPORT_CHANGED'
+export const BOUND_FIT_INIT = 'BOUND_FIT_INIT'
+export const RADAR_LIVE_STATUS_CHANGED = 'RADAR_LIVE_STATUS_CHANGED'
+export const RADAR_LIVE_PRELOADING_CHANGED = 'RADAR_LIVE_PRELOADING_CHANGED'
+export const RADAR_LIVE_IMAGE_CHANGED = 'RADAR_LIVE_IMAGE_CHANGED'
+export const RADAR_LIVE_PAUSE_CHANGED = 'RADAR_LIVE_PAUSE_CHANGED'
+export const RADAR_LIVE_FREQUENCY_CHANGED = 'RADAR_LIVE_FREQUENCY_CHANGED'
+export const RADAR_HISTORY_STATUS_CHANGED = 'RADAR_HISTORY_STATUS_CHANGED'
+export const RADAR_HISTORY_PRELOADING_CHANGED = 'RADAR_HISTORY_PRELOADING_CHANGED'
+export const RADAR_HISTORY_IMAGE_CHANGED = 'RADAR_HISTORY_IMAGE_CHANGED'
+export const RADAR_HISTORY_PAUSE_CHANGED = 'RADAR_HISTORY_PAUSE_CHANGED'
+export const RADAR_HISTORY_FREQUENCY_CHANGED = 'RADAR_HISTORY_FREQUENCY_CHANGED'
 
 // ------------------------------------
 // Actions
@@ -63,22 +76,126 @@ export function selectHistoryStation (stationData) {
   }
 }
 
+export function changeMapViewport ({ center, zoom }) {
+  return {
+    type    : VIEWPORT_CHANGED,
+    payload : { center, zoom }
+  }
+}
+
+export function setInitBoundFit () {
+  return {
+    type    : BOUND_FIT_INIT,
+    payload : null
+  }
+}
+
+export function changeLiveRadarImage (image) {
+  return {
+    type    : RADAR_LIVE_IMAGE_CHANGED,
+    payload : image
+  }
+}
+
+export function changeLiveRadarPause (pause) {
+  return {
+    type    : RADAR_LIVE_PAUSE_CHANGED,
+    payload : pause
+  }
+}
+
+export function changeLiveRadarFrequency (freq) {
+  return {
+    type    : RADAR_LIVE_FREQUENCY_CHANGED,
+    payload : freq
+  }
+}
+
+export function changeLiveRadarStatus (active) {
+  return {
+    type    : RADAR_LIVE_STATUS_CHANGED,
+    payload : active
+  }
+}
+
+export function changeLiveRadarPreloading (preloading) {
+  return {
+    type    : RADAR_LIVE_PRELOADING_CHANGED,
+    payload : preloading
+  }
+}
+
+export function changeHistoryRadarImage (image) {
+  return {
+    type    : RADAR_HISTORY_IMAGE_CHANGED,
+    payload : image
+  }
+}
+
+export function changeHistoryRadarPause (pause) {
+  return {
+    type    : RADAR_HISTORY_PAUSE_CHANGED,
+    payload : pause
+  }
+}
+
+export function changeHistoryRadarFrequency (freq) {
+  return {
+    type    : RADAR_HISTORY_FREQUENCY_CHANGED,
+    payload : freq
+  }
+}
+
+export function changeHistoryRadarStatus (active) {
+  return {
+    type    : RADAR_HISTORY_STATUS_CHANGED,
+    payload : active
+  }
+}
+
+export function changeHistoryRadarPreloading (preloading) {
+  return {
+    type    : RADAR_HISTORY_PRELOADING_CHANGED,
+    payload : preloading
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
+const initLiveStation = Db.get('initLiveStation') || null
 const yesterday = moment().subtract(1, 'day')
 const initialState = {
   view: 'live',
+  center: initLiveStation
+    ? { lat: parseFloat(initLiveStation.lat), lng: parseFloat(initLiveStation.lng) }
+    : { lat: 45.397, lng: 7.644 },
+  zoom: initLiveStation ? 13 : 5,
+  boundFit: initLiveStation !== null, // no need to set bounds if station is selected
   live: {
     quantity: 'temperature',
-    selected: null
+    selected: initLiveStation || null,
+    radar: {
+      active: false,
+      preloading: false,
+      image: null,
+      pause: false,
+      frequency: 500 // ms OK it's not a real frequency
+    }
   },
   history: {
     quantity: 'temperature_mean',
     year: yesterday.format('Y'),
     month: yesterday.format('M'),
     day: yesterday.format('D'),
-    selected: null
+    selected: null,
+    radar: {
+      active: false,
+      preloading: false,
+      image: null,
+      pause: false,
+      frequency: 500 // ms OK it's not a real frequency
+    }
   },
   webcams: {
     selected: null
@@ -99,6 +216,50 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, live: { ...state.live, selected: action.payload } }
   } else if (action.type === HISTORY_STATION_SELECTED) {
     return { ...state, history: { ...state.history, selected: action.payload } }
+  } else if (action.type === VIEWPORT_CHANGED) {
+    return { ...state, center: action.payload.center, zoom: action.payload.zoom }
+  } else if (action.type === BOUND_FIT_INIT) {
+    return { ...state, boundFit: true }
+  } else if (action.type === RADAR_LIVE_STATUS_CHANGED) {
+    return {
+      ...state,
+      live: {
+        ...state.live,
+        radar: {
+          ...state.live.radar,
+          active: action.payload,
+          preloading: action.payload
+        }
+      }
+    }
+  } else if (action.type === RADAR_LIVE_PRELOADING_CHANGED) {
+    return { ...state, live: { ...state.live, radar: { ...state.live.radar, preloading: action.payload } } }
+  } else if (action.type === RADAR_LIVE_IMAGE_CHANGED) {
+    return { ...state, live: { ...state.live, radar: { ...state.live.radar, image: action.payload } } }
+  } else if (action.type === RADAR_LIVE_PAUSE_CHANGED) {
+    return { ...state, live: { ...state.live, radar: { ...state.live.radar, pause: action.payload } } }
+  } else if (action.type === RADAR_LIVE_FREQUENCY_CHANGED) {
+    return { ...state, live: { ...state.live, radar: { ...state.live.radar, frequency: action.payload } } }
+  } else if (action.type === RADAR_HISTORY_STATUS_CHANGED) {
+    return {
+      ...state,
+      history: {
+        ...state.history,
+        radar: {
+          ...state.history.radar,
+          active: action.payload,
+          preloading: action.payload
+        }
+      }
+    }
+  } else if (action.type === RADAR_HISTORY_PRELOADING_CHANGED) {
+    return { ...state, history: { ...state.history, radar: { ...state.history.radar, preloading: action.payload } } }
+  } else if (action.type === RADAR_HISTORY_IMAGE_CHANGED) {
+    return { ...state, history: { ...state.history, radar: { ...state.history.radar, image: action.payload } } }
+  } else if (action.type === RADAR_HISTORY_PAUSE_CHANGED) {
+    return { ...state, history: { ...state.history, radar: { ...state.history.radar, pause: action.payload } } }
+  } else if (action.type === RADAR_HISTORY_FREQUENCY_CHANGED) {
+    return { ...state, history: { ...state.history, radar: { ...state.history.radar, frequency: action.payload } } }
   }
 
   return state

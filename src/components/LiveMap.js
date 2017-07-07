@@ -7,22 +7,41 @@ import {
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import LiveMarker from 'components/LiveMarker'
 import LiveStationModal from 'components/LiveStationModal'
+import LiveRadarOverlayContainer from 'containers/LiveRadarOverlayContainer'
 
 class LiveMapClass extends React.Component {
-  constructor () {
-    super()
-    this.fitBoundsEnabled = true
+  constructor (props) {
+    super(props)
     this.gmap = null
-    this.state = {
-      zoom: 8,
-      center: { lat: 45.397, lng: 7.644 }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    // new radar frames!
+    if (nextProps.radarImages.length !== this.props.radarImages.length) {
+      this.props.changeLiveRadarPreloading(true)
     }
+  }
+
+  // set viewport for other maps!!
+  componentWillUnmount () {
+    this.props.changeMapViewport({
+      center: this.gmap.getCenter(),
+      zoom: this.gmap.getZoom()
+    })
+  }
+
+  shouldComponentUpdate (nextProps) {
+    // just experiments
+    if (!nextProps.mapData.live.radar.preloading && this.props.mapData.live.radar.preloading) {
+      return true
+    }
+    return true
   }
 
   render () {
     let modal = null
-    if (this.props.viewData.selected) {
-      let data = this.props.viewData.selected
+    if (this.props.mapData.live.selected) {
+      let data = this.props.data.filter(d => d.station.id === this.props.mapData.live.selected.id)[0]
       modal = (
         <LiveStationModal
           onRequestClose={() => this.props.selectStation(null)}
@@ -30,23 +49,28 @@ class LiveMapClass extends React.Component {
         />
       )
     }
+    // setting center and zom and
+    // onZoomChanged={() => this.setState({ zoom: this.gmap.getZoom() })}
+    // onBoundsChanged={() => this.setState({ center: this.gmap.getCenter() })}
+    // causes the map to work insanely slow on pan and zoom, a lot of
+    // [violation] setTimeout took....
+    // need to find a way to keep center and zoom state but without redrawing at any time
     return (
       <div>
         {modal}
         <GoogleMap
-          zoom={this.state.zoom}
-          center={this.state.center}
+          defaultZoom={this.props.mapData.zoom}
+          defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
-          onZoomChanged={() => this.setState({ zoom: this.gmap.getZoom() })}
-          onBoundsChanged={() => this.setState({ center: this.gmap.getCenter() })}
           onTilesLoaded={() => {
-            if (this.fitBoundsEnabled) {
+            // @TODO set as default const init value
+            if (!this.props.mapData.boundFit) {
               const newBounds = new google.maps.LatLngBounds()
               this.props.data.forEach((obj, index) => {
                 newBounds.extend(new google.maps.LatLng(obj.station.lat, obj.station.lng))
               })
               this.gmap.fitBounds(newBounds)
-              this.fitBoundsEnabled = false
+              this.props.setInitBoundFit()
             }
           }}
         >
@@ -55,13 +79,14 @@ class LiveMapClass extends React.Component {
             enableRetinaIcons
             gridSize={60}
           >
+            <LiveRadarOverlayContainer />
             {this.props.data.map((obj, index) => {
               return (
                 <LiveMarker
                   obj={obj}
                   key={obj.station.id}
-                  quantity={this.props.viewData.quantity}
-                  onClick={() => this.props.selectStation(obj)}
+                  quantity={this.props.mapData.live.quantity}
+                  onClick={() => this.props.selectStation(obj.station)}
                 />
               )
             })}
@@ -74,8 +99,17 @@ class LiveMapClass extends React.Component {
 
 LiveMapClass.propTypes = {
   data: PropTypes.array,
-  viewData: PropTypes.object,
-  selectStation: PropTypes.func.isRequired
+  mapData: PropTypes.shape({
+    live: PropTypes.object.isRequired,
+    center: PropTypes.object.isRequired,
+    zoom: PropTypes.number.isRequired,
+    boundFit: PropTypes.bool
+  }),
+  selectStation: PropTypes.func.isRequired,
+  radarImages: PropTypes.array.isRequired,
+  changeLiveRadarPreloading: PropTypes.func.isRequired,
+  changeMapViewport: PropTypes.func.isRequired,
+  setInitBoundFit: PropTypes.func.isRequired
 }
 
 export default withGoogleMap(LiveMapClass)

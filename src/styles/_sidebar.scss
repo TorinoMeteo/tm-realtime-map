@@ -5,7 +5,7 @@
   height: 100%;
   left: -340px;
   overflow: auto;
-  padding-bottom: 2.8rem;
+  padding-bottom: 3.8rem;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
@@ -71,4 +71,50 @@
 
 .sidebar-content {
   padding: .5rem 1rem;
+
+  h2 {
+    color: $sidebar-content-title-color;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+}
+
+// live
+.radar-controllers {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .ion-pause,
+  .ion-play {
+    cursor: pointer;
+    font-size: 2rem;
+  }
+}
+// history
+.sidebar-history-tab .radar-controllers {
+  align-items: left;
+  flex-direction: column;
+
+  > div {
+    order: 1;
+  }
+
+  .radar-controller-slider {
+    order: 2;
+  }
+}
+
+.radar-controller-slider {
+  align-items: center;
+  display: flex;
+
+  .ion-minus {
+    margin-right: 5px;
+  }
+
+  .ion-plus-round {
+    margin-left: 12px;
+  }
 }

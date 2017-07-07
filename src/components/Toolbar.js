@@ -31,14 +31,31 @@ class Toolbar extends React.Component {
   }
 
   render () {
+    let map = this.props.map
     let title
-    if (this.props.map.view === 'live') {
-      title = this.props.stations.length
-        ? this.props.stations.length + ' stazioni (' + this.props.stations.filter(s => !s.offline).length + ' online)'
-        : ''
-    } else if (this.props.map.view === 'history') {
+    if (map.view === 'live') {
+      if (map.live.radar.active) {
+        title = map.live.radar.image
+          ? (<div>
+            Radar <i className='ion-clock' />{' '}{moment(map.live.radar.image.datetime).format('HH:mm')}
+          </div>)
+          : 'Radar'
+      } else {
+        title = this.props.stations.length
+          ? this.props.stations.length + ' stazioni (' + this.props.stations.filter(s => !s.offline).length + ' online)'
+          : ''
+      }
+    } else if (map.view === 'history') {
+      let radarTitle = null
+      if (map.history.radar.active) {
+        radarTitle = map.history.radar.image
+          ? (<div>
+            Radar <i className='ion-clock' />{' '}{moment(map.history.radar.image.datetime).format('HH:mm')}
+          </div>)
+          : 'Radar'
+      }
       let date = moment(
-        this.props.map.history.year + '-' + this.props.map.history.month + '-' + this.props.map.history.day, 'Y-M-D'
+        map.history.year + '-' + map.history.month + '-' + map.history.day, 'Y-M-D'
       )
       title = (
         <div>
@@ -59,9 +76,10 @@ class Toolbar extends React.Component {
               maxDate={moment().subtract(1, 'day')}
             />
           )}
+          {radarTitle}
         </div>
       )
-    } else if (this.props.map.view === 'webcams') {
+    } else if (map.view === 'webcams') {
       title = 'Webcam'
     }
 
@@ -89,10 +107,26 @@ Toolbar.propTypes = {
   }),
   map: PropTypes.shape({
     view: PropTypes.string,
+    live: PropTypes.shape({
+      radar: PropTypes.shape({
+        active: PropTypes.bool,
+        preloading: PropTypes.bool,
+        pause: PropTypes.bool,
+        image: PropTypes.object,
+        frequency: PropTypes.numer
+      })
+    }),
     history: PropTypes.shape({
       year: PropTypes.string | PropTypes.number,
       month: PropTypes.string | PropTypes.number,
-      day: PropTypes.string | PropTypes.number
+      day: PropTypes.string | PropTypes.number,
+      radar: PropTypes.shape({
+        active: PropTypes.bool,
+        preloading: PropTypes.bool,
+        pause: PropTypes.bool,
+        image: PropTypes.object,
+        frequency: PropTypes.numer
+      })
     })
   }),
   stations: PropTypes.array

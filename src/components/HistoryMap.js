@@ -7,22 +7,26 @@ import {
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import HistoryMarker from 'components/HistoryMarker'
 import HistoryStationModal from 'components/HistoryStationModal'
+import HistoryRadarOverlayContainer from 'containers/HistoryRadarOverlayContainer'
 
 class HistoryMapClass extends React.Component {
   constructor (props) {
     super(props)
-    this.fitBoundsEnabled = true
     this.gmap = null
-    this.state = {
-      zoom: 8,
-      center: { lat: 45.397, lng: 7.644 }
-    }
+  }
+
+  // set viewport for other maps!!
+  componentWillUnmount () {
+    this.props.changeMapViewport({
+      center: this.gmap.getCenter(),
+      zoom: this.gmap.getZoom()
+    })
   }
 
   render () {
     let modal = null
-    if (this.props.viewData.selected) {
-      let data = this.props.viewData.selected
+    if (this.props.mapData.history.selected) {
+      let data = this.props.mapData.history.selected
       modal = (
         <HistoryStationModal
           onRequestClose={() => this.props.selectStation(null)}
@@ -34,33 +38,22 @@ class HistoryMapClass extends React.Component {
       <div>
         {modal}
         <GoogleMap
-          zoom={this.state.zoom}
-          center={this.state.center}
+          defaultZoom={this.props.mapData.zoom}
+          defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
-          onZoomChanged={() => this.setState({ zoom: this.gmap.getZoom() })}
-          onBoundsChanged={() => this.setState({ center: this.gmap.getCenter() })}
-          onTilesLoaded={() => {
-            if (this.fitBoundsEnabled) {
-              const newBounds = new google.maps.LatLngBounds()
-              this.props.data.forEach((obj, index) => {
-                newBounds.extend(new google.maps.LatLng(obj.station.lat, obj.station.lng))
-              })
-              this.gmap.fitBounds(newBounds)
-              this.fitBoundsEnabled = false
-            }
-          }}
         >
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={60}
           >
+            <HistoryRadarOverlayContainer />
             {this.props.data.map((obj, index) => {
               return (
                 <HistoryMarker
                   obj={obj}
                   key={obj.station.id}
-                  quantity={this.props.viewData.quantity}
+                  quantity={this.props.mapData.history.quantity}
                   onClick={() => this.props.selectStation(obj)}
                 />
               )
@@ -74,7 +67,8 @@ class HistoryMapClass extends React.Component {
 
 HistoryMapClass.propTypes = {
   data: PropTypes.array,
-  viewData: PropTypes.object,
+  mapData: PropTypes.object,
+  changeMapViewport: PropTypes.func.isRequired,
   selectStation: PropTypes.func.isRequired
 }
 

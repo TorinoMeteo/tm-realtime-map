@@ -1,45 +1,76 @@
-// scss-lint:disable ImportantRule
+// scss-lint:disable ImportantRule SelectorDepth
 body {
   overflow-y: hidden;
   -webkit-tap-highlight-color: $slider-tap-color;
 }
 
-.slider {
-  background-color: $slider-color;
-  height: 4000px;
-  margin: 0 20px;
-  width: 4px;
+.sidebar-history-tab {
+  .time-travel-slider {
+    .slider {
+      background-color: $slider-color;
+      height: 4000px;
+      margin: 0 20px;
+      width: 4px;
+    }
+
+    .handle {
+      background-color: $slider-handle-bg;
+      border-radius: 50%;
+      color: $slider-handle-color;
+      cursor: pointer;
+      font-size: .8em;
+      height: 44px;
+      left: -20px;
+      line-height: 44px;
+      text-align: center;
+      width: 44px;
+    }
+
+    .bar-1 {
+      background: $slider-bar-color;
+      height: 4px;
+    }
+  }
+
+  .scroll-area {
+    bottom: 0;
+    left: 270px;
+    position: absolute !important;
+    top: 50px;
+  }
+
+  .scrollarea-content {
+    margin-right: 18px !important;
+  }
+
+  .scrollarea .scrollbar-container.vertical .scrollbar {
+    background: $scrollbar-bg !important;
+  }
 }
 
-.handle {
-  background-color: $slider-handle-bg;
-  border-radius: 50%;
-  color: $slider-handle-color;
-  cursor: pointer;
-  font-size: .8em;
-  height: 44px;
-  left: -20px;
-  line-height: 44px;
-  text-align: center;
-  width: 44px;
-}
+.radar-controllers {
+  .slider {
+    background-color: $slider-color;
+    height: 4px;
+    margin: 20px 0;
+    width: 200px;
+  }
 
-.bar-1 {
-  background: $slider-bar-color;
-  height: 4px;
-}
+  .handle {
+    background-color: $slider-handle-bg;
+    border-radius: 50%;
+    color: $slider-handle-color;
+    cursor: pointer;
+    font-size: .8em;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    top: -12px;
+    width: 26px;
+  }
 
-.scroll-area {
-  bottom: 0;
-  left: 270px;
-  position: absolute !important;
-  top: 50px;
-}
-
-.scrollarea-content {
-  margin-right: 18px !important;
-}
-
-.scrollarea .scrollbar-container.vertical .scrollbar {
-  background: $scrollbar-bg !important;
+  .bar-1 {
+    background: $slider-bar-color;
+    height: 4px;
+  }
 }

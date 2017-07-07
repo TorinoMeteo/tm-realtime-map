@@ -10,6 +10,7 @@
 
 .map-loading {
   background: $map-loading-bg;
+  z-index: 1000;
 }
 
 .map-canvas {

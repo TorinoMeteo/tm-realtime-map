@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import SidebarRealtimeTab from 'components/SidebarRealtimeTab'
 import SidebarHistoryTab from 'components/SidebarHistoryTab'
 import SidebarWebcamTab from 'components/SidebarWebcamTab'
-import SidebarInfoTab from 'components/SidebarInfoTab'
+import SidebarSettingsTab from 'components/SidebarSettingsTab'
 
 export class Sidebar extends React.Component {
   static propTypes = {
@@ -20,7 +20,11 @@ export class Sidebar extends React.Component {
     map: PropTypes.shape({
       view: PropTypes.string.isRequired,
       live: PropTypes.shape({
-        quantity: PropTypes.string
+        quantity: PropTypes.string,
+        radar: PropTypes.shape({
+          active: PropTypes.bool,
+          preloading: PropTypes.bool
+        })
       }),
       history: PropTypes.shape({
         quantity: PropTypes.string,
@@ -37,6 +41,14 @@ export class Sidebar extends React.Component {
       syncing: PropTypes.bool,
       loading: PropTypes.bool,
       data: PropTypes.array
+    }),
+    realtime: PropTypes.shape({
+      sync: PropTypes.bool,
+      syncing: PropTypes.bool,
+      loading: PropTypes.bool,
+      data: PropTypes.shape({
+        stations: PropTypes.array.isRequired
+      })
     })
   }
 
@@ -49,7 +61,7 @@ export class Sidebar extends React.Component {
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
-            <Tab>Info</Tab>
+            <Tab><i className='ion-gear-a' /></Tab>
           </TabList>
           <TabPanel>
             <SidebarRealtimeTab
@@ -78,7 +90,9 @@ export class Sidebar extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <SidebarInfoTab />
+            <SidebarSettingsTab
+              stations={this.props.realtime.data.stations}
+            />
           </TabPanel>
         </Tabs>
       </nav>

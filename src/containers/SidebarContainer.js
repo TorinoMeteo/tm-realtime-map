@@ -6,14 +6,16 @@ import {
   changeHistoryQuantity,
   changeView,
   changeHistoryDate,
-  selectWebcam
+  selectWebcam,
+  changeLiveRadarStatus
 } from 'store/map'
 
 const mapStateToProps = (state) => {
   return {
     ui: state.ui,
     map: state.map,
-    webcams: state.webcams
+    webcams: state.webcams,
+    realtime: state.realtime
   }
 }
 

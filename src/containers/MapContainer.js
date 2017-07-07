@@ -5,7 +5,10 @@ import WebcamsApi from 'api/webcams'
 import {
   selectWebcam,
   selectLiveStation,
-  selectHistoryStation
+  selectHistoryStation,
+  changeLiveRadarPreloading,
+  changeMapViewport,
+  setInitBoundFit
 } from 'store/map'
 
 const mapStateToProps = (state) => {
@@ -13,7 +16,8 @@ const mapStateToProps = (state) => {
     realtime: state.realtime,
     history: state.history,
     webcams: state.webcams,
-    map: state.map
+    map: state.map,
+    radar: state.radar
   }
 }
 
@@ -21,6 +25,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchRealtimeData: () => {
       dispatch(RealtimeApi.actions.realtimeData())
+    },
+    fetchLiveRadarImages: (year, month, day) => {
+      dispatch(RealtimeApi.actions.liveRadarImages({ year, month, day }))
+    },
+    fetchHistoryRadarImages: (year, month, day) => {
+      dispatch(RealtimeApi.actions.historyRadarImages({ year, month, day }))
     },
     fetchHistoricData: (year, month, day) => {
       dispatch(RealtimeApi.actions.historicData({ year, month, day }))
@@ -36,6 +46,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectHistoryStation: (stationData) => {
       dispatch(selectHistoryStation(stationData))
+    },
+    changeLiveRadarPreloading: (preloading) => {
+      dispatch(changeLiveRadarPreloading(preloading))
+    },
+    changeMapViewport: ({ center, zoom }) => {
+      dispatch(changeMapViewport({ center, zoom }))
+    },
+    setInitBoundFit: () => {
+      dispatch(setInitBoundFit())
     }
   }
 }

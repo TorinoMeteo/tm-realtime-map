@@ -6,7 +6,7 @@ import moment from 'moment'
 
 const LiveStationModal = (props) => {
   let offlineWarning = isOffline(props.data)
-    ? (<p className='alert alert-danger' style={{ marginTop: '1rem' }}>
+    ? (<p className='alert alert-danger'>
       La stazione risulta offline, i valori si riferiscono all'ultima misurazione effettuata
       </p>)
     : ''
@@ -14,98 +14,129 @@ const LiveStationModal = (props) => {
   let description = props.data.station.description
   let rexp = new RegExp('<img .*?src="(https?://www.yr.no.*?)".*?>')
   let matches = description.match(rexp)
-  let newDescription = description.replace(rexp)
-  let meteogramUrl = matches[1]
+  let meteogramUrl = matches && matches[1] ? matches[1] : null
   return (
     <Modal
       onRequestClose={props.onRequestClose}
-      className='tm-modal'
+      className='tm-modal tm-modal-sm'
       contentLabel='Station Preview Modal'
       isOpen
     >
       <section className='tm-modal-content'>
-        <h2>{props.data.station.name}</h2>
-        <p style={{ marginTop: '1rem' }}>
-          <img src={meteogramUrl} alt='meteogramma by www.yr.no' className='img-fluid' />
-        </p>
+        <h2 style={{ marginBottom: '1rem' }}>
+          {props.data.station.name}
+          <a
+            href={'https://www.torinometeo.org/realtime/' + props.data.station.slug}
+            target='_blank'
+            className='float-right btn btn-sm btn-secondary btn-detail'>
+            dettaglio stazione{' '}
+            <i className='ion-ios-arrow-forward' />
+          </a>
+        </h2>
         {offlineWarning}
-        <h4 style={{ marginTop: '2rem', marginBottom: '1rem' }}>
+        <h5 className='modal-station-datetime'>
           <i className='ion-calendar' /> {moment(props.data.datetime).format('LLL')}
-        </h4>
-        <div className='table-responsive'>
-          <table className='table table-striped'>
-            <thead>
-              <tr>
-                <th>Grandezza (u.m.)</th>
-                <th>Corrente</th>
-                <th>Massima</th>
-                <th>Minima</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Temperatura (°C)</td>
-                <td>{props.data.temperature}</td>
-                <td>{props.data.temperature_max}</td>
-                <td>{props.data.temperature_min}</td>
-              </tr>
-              <tr>
-                <td>Pressione (hPa)</td>
-                <td>{props.data.pressure}</td>
-                <td>{props.data.pressure_max}</td>
-                <td>{props.data.pressure_min}</td>
-              </tr>
-              <tr>
-                <td>Umidità relativa (%)</td>
-                <td>{props.data.relative_humidity}</td>
-                <td>{props.data.relative_humidity_max}</td>
-                <td>{props.data.relative_humidity_min}</td>
-              </tr>
-              <tr>
-                <td>Dewpoint (°C)</td>
-                <td>{props.data.dewpoint}</td>
-                <td>{props.data.dewpoint_max}</td>
-                <td>{props.data.dewpoint_min}</td>
-              </tr>
-              <tr>
-                <td>Vento (km/h)</td>
-                <td>{props.data.wind}</td>
-                <td>{props.data.wind_max}</td>
-                <td />
-              </tr>
-              <tr>
-                <th>Precipitazione (mm/h)</th>
-                <th>Odierna (mm)</th>
-                <th>Mensile (mm)</th>
-                <th>Annuale (mm)</th>
-              </tr>
-              <tr>
-                <td>{props.data.rain_rate}</td>
-                <td>{props.data.rain}</td>
-                <td>{props.data.rain_month}</td>
-                <td>{props.data.rain_year}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <hr />
-        <div className='row'>
-          <div className='col-md-8'>
-            <div className='live-station-description' dangerouslySetInnerHTML={{ __html: newDescription }} />
-          </div>
-          <div className='col-md-4'>
-            {props.data.station.webcam_url && (
+        </h5>
+        <div className='modal-station-main'>
+          <div className='row'>
+            <div className='col-md-7 push-md-5'>
+              <table className='table-modal-data'>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span className='modal-temperature'>
+                        <i className='wi wi-thermometer' /> {props.data.temperature} °C
+                      </span>
+                    </td>
+                    <td style={{ verticalAlign: 'middle' }}>
+                      <span className='modal-temperature-max'>
+                        <i className='ion-chevron-up' /> {props.data.temperature_max} °C
+                      </span><br />
+                      <span className='modal-temperature-min'>
+                        <i className='ion-chevron-down' /> {props.data.temperature_min} °C
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className='modal-pressure'>
+                        <i className='wi wi-barometer' /> {props.data.pressure} hPa
+                      </span><br />
+                      <span className='modal-relative_humidity'>
+                        <i className='wi wi-humidity' /> {props.data.relative_humidity} %
+                      </span><br />
+                      <span className='modal-dewpoint'>
+                        <i className='wi wi-raindrop' /> {props.data.dewpoint} °C
+                      </span>
+                    </td>
+                    <td>
+                      <span className='modal-rain-rate'>
+                        <i className='wi wi-raindrops' /> {props.data.rain_rate} mm/h
+                      </span><br />
+                      <span className='modal-rain'>
+                        <i className='wi wi-umbrella' /> {props.data.rain} mm
+                      </span><br />
+                      <span className='modal-wind'>
+                        <i className='wi wi-windy' /> {props.data.wind}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className='col-md-5 pull-md-7'>
               <p>
-                <img
-                  src={props.data.station.webcam_url + '?' + new Date().getTime()}
-                  alt='immagine webcam'
-                  className='img-fluid'
-                />
+                <img src={props.data.station.image_url} alt='immagine stazione' className='img-fluid' />
               </p>
-            )}
-            <p><img src={props.data.station.image_url} alt='immagine stazione' className='img-fluid' /></p>
+            </div>
           </div>
         </div>
+        <p className='modal-icon-expand'>
+          {props.data.station.webcam_url && (
+            <i
+              onClick={() => {
+                let wb = document.getElementById('webcam-image-' + props.data.station.id)
+                let mg = document.getElementById('meteogram-' + props.data.station.id)
+                let disp = wb.style.display
+                wb.style.display = disp === 'none' ? 'block' : 'none'
+                if (mg) {
+                  mg.style.display = 'none'
+                }
+              }}
+              className='ion-camera' />
+          )}
+          {meteogramUrl && (
+            <i
+              onClick={() => {
+                let wb = document.getElementById('webcam-image-' + props.data.station.id)
+                let mg = document.getElementById('meteogram-' + props.data.station.id)
+                let disp = mg.style.display
+                mg.style.display = disp === 'none' ? 'block' : 'none'
+                if (wb) {
+                  wb.style.display = 'none'
+                }
+              }}
+              className='ion-ios-partlysunny' />
+          )}
+        </p>
+        {props.data.station.webcam_url && (
+          <img
+            src={props.data.station.webcam_url + '?' + new Date().getTime()}
+            alt='immagine webcam'
+            className='img-fluid img-margin-bottom'
+            id={'webcam-image-' + props.data.station.id}
+            style={{ display: 'none' }}
+          />
+        )}
+        {meteogramUrl && (
+          <img
+            src={meteogramUrl}
+            alt='meteogramma'
+            id={'meteogram-' + props.data.station.id}
+            className='img-fluid img-margin-bottom'
+            style={{ display: 'none' }}
+          />
+        )}
       </section>
     </Modal>
   )
