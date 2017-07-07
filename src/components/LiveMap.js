@@ -32,8 +32,11 @@ class LiveMapClass extends React.Component {
 
   shouldComponentUpdate (nextProps) {
     // just experiments
-    if (!nextProps.mapData.live.radar.preloading && this.props.mapData.live.radar.preloading) {
-      return true
+    if (
+      nextProps.mapData.live.radar.image &&
+      this.props.mapData.live.radar.image &&
+      nextProps.mapData.live.radar.image.filename !== this.props.mapData.live.radar.image.filename) {
+      return false
     }
     return true
   }
@@ -74,12 +77,12 @@ class LiveMapClass extends React.Component {
             }
           }}
         >
+          <LiveRadarOverlayContainer />
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={60}
           >
-            <LiveRadarOverlayContainer />
             {this.props.data.map((obj, index) => {
               return (
                 <LiveMarker

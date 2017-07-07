@@ -23,6 +23,17 @@ class HistoryMapClass extends React.Component {
     })
   }
 
+  shouldComponentUpdate (nextProps) {
+    // just experiments
+    if (
+      nextProps.mapData.history.radar.image &&
+      this.props.mapData.history.radar.image &&
+      nextProps.mapData.history.radar.image.filename !== this.props.mapData.history.radar.image.filename) {
+      return false
+    }
+    return true
+  }
+
   render () {
     let modal = null
     if (this.props.mapData.history.selected) {
