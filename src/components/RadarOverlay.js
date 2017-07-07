@@ -44,8 +44,9 @@ class RadarOverlay extends React.Component {
   nextImageIndex () {
     if (this.imageIndex === this.props.images.length - 1) {
       this.imageIndex = 0
+    } else {
+      this.imageIndex++
     }
-    this.imageIndex++
     return this.imageIndex
   }
 
@@ -57,7 +58,6 @@ class RadarOverlay extends React.Component {
   componentWillReceiveProps (nextProps) {
     // pausing or deactivating?
     if ((nextProps.pause && !this.props.pause) || (!nextProps.active && this.props.active)) {
-      console.log('DIOMERDA', 'clearing timeout')
       clearTimeout(this.timeout)
     }
     // resuming?
@@ -67,9 +67,11 @@ class RadarOverlay extends React.Component {
   }
 
   componentWillUnmount () {
-    // set in pause
+    // set in pause if active
     clearTimeout(this.timeout)
-    this.props.changeRadarPause(true)
+    if (this.props.active) {
+      this.props.changeRadarPause(true)
+    }
   }
 
   render () {
@@ -96,9 +98,8 @@ class RadarOverlay extends React.Component {
         </Preload>
       )
     }
-
-    let swBound = new google.maps.LatLng(46.73660837340877, 7.01852328)
-    let neBound = new google.maps.LatLng(44.75214181, 7.99661518216243)
+    let swBound = new google.maps.LatLng(43.8189833, 5.868697222222223)
+    let neBound = new google.maps.LatLng(46.6995, 9.664697222222223)
     let bounds = new google.maps.LatLngBounds(swBound, neBound)
 
     let radarOverlay = null

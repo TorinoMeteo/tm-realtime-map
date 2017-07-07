@@ -5,13 +5,17 @@ import {
   changeLiveRadarPreloading,
   changeLiveRadarPause
 } from 'store/map'
+import * as Db from 'utils/db'
+
+let radarLiveHistory = Db.get('radarLiveHistory') || 20
 
 const sliceImages = (images) => {
   if (!images) {
     return []
   }
   let len = images.length
-  return len > 19 ? images.slice(len - 20) : images
+  let filtered = (len > radarLiveHistory && radarLiveHistory !== 0) ? images.slice(len - radarLiveHistory) : images
+  return filtered
 }
 
 const mapStateToProps = (state) => {

@@ -93,7 +93,9 @@ class Toolbar extends React.Component {
         <span className='navbar-title'>
           {title}
         </span>
-        <a className='navbar-brand' href='#'><img src={Logo} alt='TorinoMeteo' /></a>
+        <a className='navbar-brand' href='https://www.torinometeo.org'>
+          <img src={Logo} alt='TorinoMeteo' />
+        </a>
       </nav>
     )
   }

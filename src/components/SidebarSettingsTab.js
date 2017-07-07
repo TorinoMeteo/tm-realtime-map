@@ -10,6 +10,7 @@ class SidebarInfoTab extends React.Component {
   constructor () {
     super()
     this.changeInitLiveStation = this.changeInitLiveStation.bind(this)
+    this.changeLiveRadarHistory = this.changeLiveRadarHistory.bind(this)
   }
 
   changeInitLiveStation (event) {
@@ -21,8 +22,14 @@ class SidebarInfoTab extends React.Component {
     }
   }
 
+  changeLiveRadarHistory (event) {
+    let value = parseInt(event.target.value)
+    Db.store('radarLiveHistory', value)
+  }
+
   render () {
     let initiLiveStation = Db.get('initLiveStation') || null
+    let radarLiveHistory = Db.get('radarLiveHistory') || 20
     return (
       <div className='sidebar-content'>
         <p><i className='ion-information-circled' /> Le impostazioni sono locali al browser!</p>
@@ -42,6 +49,14 @@ class SidebarInfoTab extends React.Component {
               </option>
             )
           })}
+        </select>
+        <h2>Radar</h2>
+        <p>Puoi scegliere l'intervallo temporale mostrato per il radar della mappa live</p>
+        <select onChange={this.changeLiveRadarHistory} className='custom-select'>
+          <option value='6' selected={radarLiveHistory === 8}>1 ora</option>
+          <option value='12' selected={radarLiveHistory === 14}>2 ore</option>
+          <option value='18' selected={radarLiveHistory === 20}>3 ore</option>
+          <option value='0' selected={radarLiveHistory === 0}>tutto il giorno</option>
         </select>
       </div>
     )
