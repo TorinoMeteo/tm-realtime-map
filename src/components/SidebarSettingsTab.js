@@ -58,6 +58,12 @@ class SidebarInfoTab extends React.Component {
           <option value='18' selected={radarLiveHistory === 20}>3 ore</option>
           <option value='0' selected={radarLiveHistory === 0}>tutto il giorno</option>
         </select>
+        <hr />
+        <p>
+          <i className='ion-information-circled' />{' '}
+          Per vedere gli effetti delle nuove impostazioni è necessario{' '}
+          <a onClick={() => location.reload()} href='#'>ricaricare la pagina</a>
+        </p>
       </div>
     )
   }

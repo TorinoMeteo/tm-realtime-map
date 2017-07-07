@@ -38,6 +38,9 @@ class RadarOverlay extends React.Component {
 
   startAnimation () {
     this.props.changeRadarImage(this.props.images[this.imageIndex])
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
     setTimeout(this.changeImage, this.props.frequency)
   }
 
