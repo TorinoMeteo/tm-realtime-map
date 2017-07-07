@@ -53,12 +53,12 @@ class HistoryMapClass extends React.Component {
           defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
         >
+          <HistoryRadarOverlayContainer />
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={60}
           >
-            <HistoryRadarOverlayContainer />
             {this.props.data.map((obj, index) => {
               return (
                 <HistoryMarker

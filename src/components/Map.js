@@ -19,12 +19,14 @@ class Map extends React.Component {
       nextProps.map.view === 'history' &&
       !this.props.history.loading && // avoid multiple requests
       (
-        !this.props.history.data.length ||
+        this.props.map.view !== 'history' ||
+        !this.props.history.sync ||
         nextProps.map.history.year !== this.props.map.history.year ||
         nextProps.map.history.month !== this.props.map.history.month ||
         nextProps.map.history.day !== this.props.map.history.day
       )
     ) {
+      console.log(nextProps, this.props)
       this.props.fetchHistoricData(
         nextProps.map.history.year,
         nextProps.map.history.month,
