@@ -14,7 +14,7 @@ const sliceImages = (images) => {
     return []
   }
   let len = images.length
-  let filtered = (len > radarLiveHistory && radarLiveHistory !== 0) ? images.slice(len - radarLiveHistory) : images
+  let filtered = (len > radarLiveHistory && radarLiveHistory !== 100) ? images.slice(len - radarLiveHistory) : images
   return filtered
 }
 

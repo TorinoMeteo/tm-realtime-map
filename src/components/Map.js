@@ -26,7 +26,6 @@ class Map extends React.Component {
         nextProps.map.history.day !== this.props.map.history.day
       )
     ) {
-      console.log(nextProps, this.props)
       this.props.fetchHistoricData(
         nextProps.map.history.year,
         nextProps.map.history.month,

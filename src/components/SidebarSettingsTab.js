@@ -30,19 +30,22 @@ class SidebarInfoTab extends React.Component {
   render () {
     let initiLiveStation = Db.get('initLiveStation') || null
     let radarLiveHistory = Db.get('radarLiveHistory') || 20
+    console.log('MANNAIA', radarLiveHistory)
     return (
       <div className='sidebar-content'>
         <p><i className='ion-information-circled' /> Le impostazioni sono locali al browser!</p>
         <h2>Inizializzazione mappa</h2>
         <p>Puoi scegliere una stazione da mostrare attiva ogni volta che apri la mappa</p>
-        <select onChange={this.changeInitLiveStation} className='custom-select'>
+        <select
+          onChange={this.changeInitLiveStation}
+          defaultValue={initiLiveStation ? initiLiveStation.id : 0}
+          className='custom-select'
+        >
           <option value='0'>Nessuna</option>
           {this.props.stations.map((s) => {
-            let selected = initiLiveStation && initiLiveStation.id === s.id
             return (
               <option
                 key={'option' + s.id}
-                selected={selected}
                 value={s.id}
               >
                 {s.name}
@@ -52,11 +55,15 @@ class SidebarInfoTab extends React.Component {
         </select>
         <h2>Radar</h2>
         <p>Puoi scegliere l'intervallo temporale mostrato per il radar della mappa live</p>
-        <select onChange={this.changeLiveRadarHistory} className='custom-select'>
-          <option value='6' selected={radarLiveHistory === 8}>1 ora</option>
-          <option value='12' selected={radarLiveHistory === 14}>2 ore</option>
-          <option value='18' selected={radarLiveHistory === 20}>3 ore</option>
-          <option value='0' selected={radarLiveHistory === 0}>tutto il giorno</option>
+        <select
+          onChange={this.changeLiveRadarHistory}
+          defaultValue={radarLiveHistory}
+          className='custom-select'
+        >
+          <option value='6'>1 ora</option>
+          <option value='12'>2 ore</option>
+          <option value='18'>3 ore</option>
+          <option value='100'>tutto il giorno</option>
         </select>
         <hr />
         <p>
