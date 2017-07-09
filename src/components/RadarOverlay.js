@@ -101,8 +101,8 @@ class RadarOverlay extends React.Component {
         </Preload>
       )
     }
-    let swBound = new google.maps.LatLng(43.8189833, 5.868697222222223)
-    let neBound = new google.maps.LatLng(46.6995, 9.664697222222223)
+    let swBound = new google.maps.LatLng(43.780, 5.850)
+    let neBound = new google.maps.LatLng(46.690, 9.700)
     let bounds = new google.maps.LatLngBounds(swBound, neBound)
 
     let radarOverlay = null

@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Logo from 'assets/images/logo.png'
 import moment from 'moment'
+/* eslint-disable */
+import { tz } from 'moment-timezone'
+/* eslint-enable */
 import DatePicker from 'react-datepicker'
 import 'styles/react-datepicker.scss'
 moment.locale('it')
@@ -37,7 +40,8 @@ class Toolbar extends React.Component {
       if (map.live.radar.active) {
         title = map.live.radar.image
           ? (<div>
-            Radar <i className='ion-clock' />{' '}{moment(map.live.radar.image.datetime).format('HH:mm')}
+            Radar <i className='ion-clock' />{' '}
+            {moment.utc(map.live.radar.image.datetime).tz('Europe/Rome').format('HH:mm')}
           </div>)
           : 'Radar'
       } else {
@@ -50,7 +54,8 @@ class Toolbar extends React.Component {
       if (map.history.radar.active) {
         radarTitle = map.history.radar.image
           ? (<div>
-            Radar <i className='ion-clock' />{' '}{moment(map.history.radar.image.datetime).format('HH:mm')}
+            Radar <i className='ion-clock' />{' '}
+            {moment(map.history.radar.image.datetime).tz('Europe/Rome').format('HH:mm')}
           </div>)
           : 'Radar'
       }
