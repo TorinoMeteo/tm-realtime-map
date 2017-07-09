@@ -9,7 +9,8 @@ const STYLES = {
   overlayView: {
     // background: `red`,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    opacity: '.6'
   }
 }
 

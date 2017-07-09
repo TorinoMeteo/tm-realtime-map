@@ -41,7 +41,7 @@ class Toolbar extends React.Component {
         title = map.live.radar.image
           ? (<div>
             Radar <i className='ion-clock' />{' '}
-            {moment.utc(map.live.radar.image.datetime).tz('Europe/Rome').format('HH:mm')}
+            {moment(map.live.radar.image.datetime).format('HH:mm')}
           </div>)
           : 'Radar'
       } else {
@@ -55,7 +55,7 @@ class Toolbar extends React.Component {
         radarTitle = map.history.radar.image
           ? (<div>
             Radar <i className='ion-clock' />{' '}
-            {moment(map.history.radar.image.datetime).tz('Europe/Rome').format('HH:mm')}
+            {moment(map.history.radar.image.datetime).format('HH:mm')}
           </div>)
           : 'Radar'
       }
