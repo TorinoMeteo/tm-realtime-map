@@ -72,6 +72,7 @@ class RadarController extends React.Component {
     return (
       <div>
         <SwitchButton
+          name={'switch-radar'}
           label='OFF'
           labelRight='ON'
           defaultChecked={this.props.status.active}

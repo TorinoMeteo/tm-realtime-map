@@ -23,6 +23,8 @@ export const RADAR_HISTORY_PRELOADING_CHANGED = 'RADAR_HISTORY_PRELOADING_CHANGE
 export const RADAR_HISTORY_IMAGE_CHANGED = 'RADAR_HISTORY_IMAGE_CHANGED'
 export const RADAR_HISTORY_PAUSE_CHANGED = 'RADAR_HISTORY_PAUSE_CHANGED'
 export const RADAR_HISTORY_FREQUENCY_CHANGED = 'RADAR_HISTORY_FREQUENCY_CHANGED'
+export const HEATMAP_LIVE_STATUS_CHANGED = 'HEATMAP_LIVE_STATUS_CHANGED'
+export const HEATMAP_HISTORY_STATUS_CHANGED = 'HEATMAP_HISTORY_STATUS_CHANGED'
 
 // ------------------------------------
 // Actions
@@ -160,6 +162,20 @@ export function changeHistoryRadarPreloading (preloading) {
   }
 }
 
+export function changeLiveHeatMapStatus (active) {
+  return {
+    type    : HEATMAP_LIVE_STATUS_CHANGED,
+    payload : active
+  }
+}
+
+export function changeHistoryHeatMapStatus (active) {
+  return {
+    type    : HEATMAP_HISTORY_STATUS_CHANGED,
+    payload : active
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -181,6 +197,9 @@ const initialState = {
       image: null,
       pause: false,
       frequency: 500 // ms OK it's not a real frequency
+    },
+    heatmap: {
+      active: false
     }
   },
   history: {
@@ -195,6 +214,9 @@ const initialState = {
       image: null,
       pause: false,
       frequency: 500 // ms OK it's not a real frequency
+    },
+    heatmap: {
+      active: false
     }
   },
   webcams: {
@@ -260,6 +282,28 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, history: { ...state.history, radar: { ...state.history.radar, pause: action.payload } } }
   } else if (action.type === RADAR_HISTORY_FREQUENCY_CHANGED) {
     return { ...state, history: { ...state.history, radar: { ...state.history.radar, frequency: action.payload } } }
+  } else if (action.type === HEATMAP_LIVE_STATUS_CHANGED) {
+    return {
+      ...state,
+      live: {
+        ...state.live,
+        heatmap: {
+          ...state.live.heatmap,
+          active: action.payload
+        }
+      }
+    }
+  } else if (action.type === HEATMAP_HISTORY_STATUS_CHANGED) {
+    return {
+      ...state,
+      history: {
+        ...state.history,
+        heatmap: {
+          ...state.history.heatmap,
+          active: action.payload
+        }
+      }
+    }
   }
 
   return state

@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   withGoogleMap,
-  GoogleMap
+  GoogleMap,
+  HeatmapLayer
 } from 'react-google-maps'
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import LiveMarker from 'components/LiveMarker'
@@ -31,7 +32,8 @@ class LiveMapClass extends React.Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    // just experiments
+    // if just the radar props are changing, do not re-render! otherwise murker clusters
+    // will flash at every image frame change
     if (
       nextProps.mapData.live.radar.image &&
       this.props.mapData.live.radar.image &&
@@ -39,6 +41,26 @@ class LiveMapClass extends React.Component {
       return false
     }
     return true
+  }
+
+  heatMap () {
+    if (!this.props.mapData.live.heatmap.active) {
+      return null
+    }
+    return (
+      <HeatmapLayer
+        options={{
+          radius: 0.2,
+          dissipating: false
+        }}
+        data={this.props.data.map((obj) => {
+          return {
+            location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
+            weight: obj.temperature
+          }
+        })}
+      />
+    )
   }
 
   render () {
@@ -77,6 +99,7 @@ class LiveMapClass extends React.Component {
             }
           }}
         >
+          {this.heatMap()}
           <LiveRadarOverlayContainer />
           <MarkerClusterer
             averageCenter

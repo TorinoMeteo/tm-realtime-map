@@ -30,7 +30,6 @@ class SidebarInfoTab extends React.Component {
   render () {
     let initiLiveStation = Db.get('initLiveStation') || null
     let radarLiveHistory = Db.get('radarLiveHistory') || 20
-    console.log('MANNAIA', radarLiveHistory)
     return (
       <div className='sidebar-content'>
         <p><i className='ion-information-circled' /> Le impostazioni sono locali al browser!</p>

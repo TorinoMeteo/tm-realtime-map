@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Marker
 } from 'react-google-maps'
-import { blue2red, white2blue } from 'utils/colors'
+import { blue2red, lightblue2blue } from 'utils/colors'
 import { COLOR_SCALE } from 'config/scales'
 
 let dftIcon = {
@@ -27,7 +27,7 @@ const HistoryMarker = (props) => {
       fillColor: 'white'
     }
   } else {
-    let strokeFunc = /rain/.test(props.quantity) ? white2blue : blue2red
+    let strokeFunc = /rain/.test(props.quantity) ? lightblue2blue : blue2red
     icon = {
       ...dftIcon,
       // limit min and max to appreciate scale variability
@@ -54,6 +54,7 @@ const HistoryMarker = (props) => {
         color: '#000'
       }}
       icon={icon}
+      title={props.obj.station.name}
       onClick={props.onClick}
     />
   )

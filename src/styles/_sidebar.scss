@@ -5,7 +5,7 @@
   height: 100%;
   left: -340px;
   overflow: auto;
-  padding-bottom: 3.8rem;
+  padding-bottom: 4rem;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
@@ -75,7 +75,8 @@
   h2 {
     color: $sidebar-content-title-color;
     font-size: 1.4rem;
-    margin: 1rem 0;
+    margin: 1.2rem 0;
+    text-shadow: 0 0 1px $black;
     text-transform: uppercase;
   }
 }

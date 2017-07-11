@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   withGoogleMap,
-  GoogleMap
+  GoogleMap,
+  HeatmapLayer
 } from 'react-google-maps'
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import HistoryMarker from 'components/HistoryMarker'
@@ -34,6 +35,26 @@ class HistoryMapClass extends React.Component {
     return true
   }
 
+  heatMap () {
+    if (!this.props.mapData.history.heatmap.active) {
+      return null
+    }
+    return (
+      <HeatmapLayer
+        options={{
+          radius: 0.2,
+          dissipating: false
+        }}
+        data={this.props.data.map((obj) => {
+          return {
+            location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
+            weight: obj.temperature_mean
+          }
+        })}
+      />
+    )
+  }
+
   render () {
     let modal = null
     if (this.props.mapData.history.selected) {
@@ -53,6 +74,7 @@ class HistoryMapClass extends React.Component {
           defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
         >
+          {this.heatMap()}
           <HistoryRadarOverlayContainer />
           <MarkerClusterer
             averageCenter

@@ -1,19 +1,38 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/PageLayout/PageLayout'
 import Home from './Home'
-
-import { async } from 'redux-api'
-import RealtimeApi from 'api/realtime'
+import LowBandwidth from './LowBandwidth'
+import ServiceUnavailable from './ServiceUnavailable'
+import NotFound from './NotFound'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
 /* eslint-disable */
-export const createRoutes = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : Home
-})
+export const createRoutes = (store) => {
+  return ([
+    {
+      path        : '/',
+      component   : CoreLayout,
+      indexRoute  : Home
+    },
+    {
+      path        : '/low-bandwidth',
+      component   : CoreLayout,
+      indexRoute  : LowBandwidth
+    },
+    {
+      path        : '/404',
+      component   : CoreLayout,
+      indexRoute  : NotFound
+    },
+    {
+      path        : '/503',
+      component   : CoreLayout,
+      indexRoute  : ServiceUnavailable
+    }
+  ])
+}
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:

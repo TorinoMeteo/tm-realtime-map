@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LiveRadarControllerContainer from 'containers/LiveRadarControllerContainer'
+import LiveHeatMapControllerContainer from 'containers/LiveHeatMapControllerContainer'
 
 const qProps = {
   temperature: {
@@ -131,8 +132,11 @@ export const SidebarRealtimeTab = (props) => {
       </ul>
       <hr />
       <div className='sidebar-content'>
-        <h2>Radar</h2>
+        <h2 style={{ marginTop: 0 }}>Radar</h2>
         <LiveRadarControllerContainer />
+        <hr />
+        <h2>HeatMap</h2>
+        <LiveHeatMapControllerContainer />
       </div>
     </div>
   )

@@ -14,6 +14,20 @@ export const white2blue = (v, max, min) => {
   return 'rgba(' + triplet[0] + ', ' + triplet[1] + ', ' + triplet[2] + ', 1)'
 }
 
+export const lightblue2blue = (v, max, min) => {
+  let fromMin = v - min
+  let scale = 100 / (max - min)
+  let n = parseInt(fromMin * scale)
+
+  let startTriplet = convert.rgb.hsv(194, 239, 255)
+  let endTriplet = convert.rgb.hsv(0, 32, 96)
+
+  let hsvTriplet = colorTransition(n, 100, startTriplet, endTriplet)
+  let triplet = convert.hsv.rgb(hsvTriplet)
+
+  return 'rgba(' + triplet[0] + ', ' + triplet[1] + ', ' + triplet[2] + ', 1)'
+}
+
 export const blue2red = (v, max, min) => {
   let fromMin = v - min
   let scale = 100 / (max - min)

@@ -4,6 +4,7 @@ import ReactSlider from 'react-slider'
 import ScrollArea from 'react-scrollbar'
 import moment from 'moment'
 import HistoryRadarControllerContainer from 'containers/HistoryRadarControllerContainer'
+import HistoryHeatMapControllerContainer from 'containers/HistoryHeatMapControllerContainer'
 
 const qProps = {
   temperature: {
@@ -162,6 +163,9 @@ export class SidebarHistoryTab extends React.Component {
           <div className='sidebar-content'>
             <h2>Radar</h2>
             <HistoryRadarControllerContainer />
+            <hr />
+            <h2>Heatmap</h2>
+            <HistoryHeatMapControllerContainer />
           </div>
         </div>
         {this.slider()}

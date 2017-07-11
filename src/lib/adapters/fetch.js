@@ -28,13 +28,8 @@ export default function adapterFetch (fetch) {
       return toJSON(resp).then(function (data) {
         if (resp.status >= 200 && resp.status < 300) {
           return data
-        } else if (resp.status === 0) {
-          // redirect
-          // location.href = config.basename
         } else if (resp.status === 404) {
           browserHistory.push('/404')
-        } else if (resp.status === 403) {
-          browserHistory.push('/403') // login
         } else if (resp.status >= 500) {
           browserHistory.push('/503') // login
         } else {
