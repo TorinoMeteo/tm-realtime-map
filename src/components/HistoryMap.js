@@ -39,6 +39,7 @@ class HistoryMapClass extends React.Component {
     if (!this.props.mapData.history.heatmap.active) {
       return null
     }
+    let quantity = this.props.mapData.history.quantity
     return (
       <HeatmapLayer
         options={{
@@ -48,7 +49,7 @@ class HistoryMapClass extends React.Component {
         data={this.props.data.map((obj) => {
           return {
             location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
-            weight: obj.temperature_mean
+            weight: obj[quantity]
           }
         })}
       />

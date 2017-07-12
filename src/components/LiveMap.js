@@ -9,6 +9,7 @@ import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import LiveMarker from 'components/LiveMarker'
 import LiveStationModal from 'components/LiveStationModal'
 import LiveRadarOverlayContainer from 'containers/LiveRadarOverlayContainer'
+import { isOffline } from 'utils/map'
 
 class LiveMapClass extends React.Component {
   constructor (props) {
@@ -47,16 +48,23 @@ class LiveMapClass extends React.Component {
     if (!this.props.mapData.live.heatmap.active) {
       return null
     }
+    let quantity = this.props.mapData.live.quantity
+    let weight = quantity === 'wind'
+      ? 'wind_strength'
+      : (quantity === 'wind_max'
+          ? 'wind_strength_max'
+          : quantity
+        )
     return (
       <HeatmapLayer
         options={{
           radius: 0.2,
           dissipating: false
         }}
-        data={this.props.data.map((obj) => {
+        data={this.props.data.filter(obj => !isOffline(obj)).map((obj) => {
           return {
             location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
-            weight: obj.temperature
+            weight: obj[weight]
           }
         })}
       />
