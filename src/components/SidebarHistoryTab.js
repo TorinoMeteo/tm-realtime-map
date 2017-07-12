@@ -120,7 +120,7 @@ export class SidebarHistoryTab extends React.Component {
     let quantity = this.props.quantity
     return (
       <div className='sidebar-history-tab'>
-        <div style={{ position: 'fixed' }}>
+        <div style={{ position: this.windowWidth < 900 ? '' : 'fixed' }}>
           <ul className='sidebar-quantity-list depth-0'>
             {['temperature', 'pressure', 'relative_humidity'].map((q) => {
               return (
