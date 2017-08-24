@@ -41,7 +41,7 @@ class Toolbar extends React.Component {
         title = map.live.radar.image
           ? (<div>
             Radar <i className='ion-clock' />{' '}
-            {moment(map.live.radar.image.datetime).format('HH:mm')}&nbsp;
+            {moment(map.live.radar.image.datetime).format('HH:mm')}&nbsp; mm/h
             <div>
 		<span style={{'background-color': '#91FADC', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>0.2</span>
              	&nbsp;<span style={{'background-color': '#64AF91', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>1</span>

@@ -59,6 +59,7 @@ export class Sidebar extends React.Component {
         <Tabs>
           <TabList>
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
+            <Tab onClick={() => this.props.changeView('overlay')}>Storico</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
             <Tab><i className='ion-gear-a' /></Tab>
