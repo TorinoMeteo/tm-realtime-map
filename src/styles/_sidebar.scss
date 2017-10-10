@@ -1,16 +1,19 @@
-// scss-lint:disable ImportantRule
+// scss-lint:disable ImportantRule SelectorFormat
 .nav-sidebar {
   background: $sidebar-bg;
   color: $sidebar-color;
   height: 100%;
   left: -340px;
   overflow: auto;
-  padding-bottom: 4rem;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
   width: 340px;
   z-index: 100;
+}
+
+.react-tabs__tab-panel {
+  padding-bottom: 80px;
 }
 
 .sidebar-quantity-list {
