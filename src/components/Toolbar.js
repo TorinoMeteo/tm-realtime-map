@@ -41,8 +41,19 @@ class Toolbar extends React.Component {
         title = map.live.radar.image
           ? (<div>
             Radar <i className='ion-clock' />{' '}
-            {moment(map.live.radar.image.datetime).format('HH:mm')}
-          </div>)
+            {moment(map.live.radar.image.datetime).format('HH:mm')}&nbsp; mm/h
+            <div>
+		<span style={{'background-color': '#91FADC', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>0.2</span>
+             	&nbsp;<span style={{'background-color': '#64AF91', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>1</span>
+             	&nbsp;<span style={{'background-color': '#55C80A', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>2</span>
+             	&nbsp;<span style={{'background-color': '#DCFF46', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>4</span>
+             	&nbsp;<span style={{'background-color': '#FF6E78', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>6</span>
+             	&nbsp;<span style={{'background-color': '#FA7355', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>10</span>
+            	&nbsp;<span style={{'background-color': '#FA0A3C', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>20</span>
+            	&nbsp;<span style={{'background-color': '#0A8CD2', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>40</span>
+            	&nbsp;<span style={{'background-color': '#A00A7D', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>60</span>
+     	     </div>
+	     </div>)
           : 'Radar'
       } else {
         title = this.props.stations.length
