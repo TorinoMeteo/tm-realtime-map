@@ -82,7 +82,7 @@ class LiveMapClass extends React.Component {
         />
       )
     }
-    // setting center and zom and
+    // setting center and zoom and
     // onZoomChanged={() => this.setState({ zoom: this.gmap.getZoom() })}
     // onBoundsChanged={() => this.setState({ center: this.gmap.getCenter() })}
     // causes the map to work insanely slow on pan and zoom, a lot of

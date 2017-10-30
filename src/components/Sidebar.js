@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import SidebarRealtimeTab from 'components/SidebarRealtimeTab'
 import SidebarHistoryTab from 'components/SidebarHistoryTab'
+import SidebarForecastTab from 'components/SidebarForecastTab'
 import SidebarWebcamTab from 'components/SidebarWebcamTab'
 import SidebarSettingsTab from 'components/SidebarSettingsTab'
 
@@ -11,6 +12,7 @@ export class Sidebar extends React.Component {
     changeLiveQuantity: PropTypes.func.isRequired,
     changeHistoryQuantity: PropTypes.func.isRequired,
     changeHistoryDate: PropTypes.func.isRequired,
+    changeForecastDate: PropTypes.func.isRequired,
     changeView: PropTypes.func.isRequired,
     selectWebcam: PropTypes.func.isRequired,
     toggleSidebar: PropTypes.func.isRequired,
@@ -31,6 +33,9 @@ export class Sidebar extends React.Component {
         year: PropTypes.number | PropTypes.string,
         month: PropTypes.number | PropTypes.string,
         day: PropTypes.number | PropTypes.string
+      }),
+      forecast: PropTypes.shape({
+        date: PropTypes.object
       }),
       webcams: PropTypes.shape({
         selected: PropTypes.object
@@ -53,14 +58,14 @@ export class Sidebar extends React.Component {
   }
 
   render () {
-    let left = this.props.ui.displaySidebar ? 0 : '-340px'
+    let left = this.props.ui.displaySidebar ? 0 : '-380px'
     return (
       <nav className='nav-sidebar' style={{ left: left }}>
         <Tabs>
           <TabList>
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
-            <Tab onClick={() => this.props.changeView('overlay')}>Storico</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
+            <Tab onClick={() => this.props.changeView('forecast')}>Previsioni</Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
             <Tab><i className='ion-gear-a' /></Tab>
           </TabList>
@@ -80,6 +85,12 @@ export class Sidebar extends React.Component {
                 month: this.props.map.history.month,
                 day: this.props.map.history.day
               }}
+            />
+          </TabPanel>
+          <TabPanel>
+            <SidebarForecastTab
+              date={this.props.map.forecast.date}
+              changeForecastDate={this.props.changeForecastDate}
             />
           </TabPanel>
           <TabPanel>

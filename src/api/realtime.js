@@ -7,6 +7,7 @@ import { addBaseApiUrl } from 'decorators/Api'
 import {
   realtimeDataTransformer,
   historicDataTransformer,
+  weatherForecastDataTransformer,
   radarLiveImagesTransformer,
   radarHistoryImagesTransformer
 } from 'store/realtime'
@@ -30,6 +31,12 @@ export default reduxApi(addBaseApiUrl(
       options: config.api.headers,
       reducerName: 'history',
       transformer: historicDataTransformer
+    },
+    weatherForecastData: {
+      url: 'weather/?date=:year-:month-:day',
+      options: config.api.headers,
+      reducerName: 'weatherForecast',
+      transformer: weatherForecastDataTransformer
     },
     liveRadarImages: {
       url: 'realtime/radar/:year/:month/:day/',

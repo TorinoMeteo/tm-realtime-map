@@ -95,6 +95,8 @@ class Toolbar extends React.Component {
           {radarTitle}
         </div>
       )
+    } else if (map.view === 'forecast') {
+      title = 'Previsioni ' + this.props.map.forecast.date.format('LL')
     } else if (map.view === 'webcams') {
       title = 'Webcam'
     }
@@ -145,6 +147,9 @@ Toolbar.propTypes = {
         image: PropTypes.object,
         frequency: PropTypes.numer
       })
+    }),
+    forecast: PropTypes.shape({
+      date: PropTypes.object.isRequired
     })
   }),
   stations: PropTypes.array

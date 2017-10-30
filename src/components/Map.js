@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Spinner from 'react-spinner'
 import LiveMap from 'components/LiveMap'
 import HistoryMap from 'components/HistoryMap'
+import ForecastMap from 'components/ForecastMap'
 import WebcamsMap from 'components/WebcamsMap'
 import moment from 'moment'
 
@@ -38,6 +39,11 @@ class Map extends React.Component {
       )
     } else if (nextProps.map.view === 'webcams' && !nextProps.webcams.data.length) {
       this.props.fetchWebcamsData()
+    } else if (
+      (nextProps.map.view === 'forecast' &&
+        nextProps.map.forecast.date.format('YMD') !== this.props.map.forecast.date.format('YMD')) ||
+      !this.props.weatherForecast.sync) {
+      this.props.fetchWeatherForecastData(nextProps.map.forecast.date)
     }
   }
 
@@ -48,6 +54,7 @@ class Map extends React.Component {
       this.props.realtime.loading ||
       this.props.history.loading ||
       this.props.webcams.loading ||
+      this.props.weatherForecast.loading ||
       this.props.radar.loading ||
       (this.props.map.live.radar.active && this.props.map.live.radar.preloading) ||
       (this.props.map.history.radar.active && this.props.map.history.radar.preloading)
@@ -90,6 +97,16 @@ class Map extends React.Component {
           changeMapViewport={this.props.changeMapViewport}
         />
       )
+    } else if (this.props.map.view === 'forecast') {
+      map = (
+        <ForecastMap
+          containerElement={<div className='map-container' />}
+          mapElement={<div className='map-canvas' />}
+          data={this.props.weatherForecast.data}
+          mapData={this.props.map}
+          changeMapViewport={this.props.changeMapViewport}
+        />
+      )
     } else if (this.props.map.view === 'webcams') {
       map = (
         <WebcamsMap
@@ -117,6 +134,7 @@ Map.propTypes = {
   fetchLiveRadarImages: PropTypes.func.isRequired,
   fetchHistoryRadarImages: PropTypes.func.isRequired,
   fetchHistoricData: PropTypes.func.isRequired,
+  fetchWeatherForecastData: PropTypes.func.isRequired,
   fetchWebcamsData: PropTypes.func.isRequired,
   selectWebcam: PropTypes.func.isRequired,
   selectLiveStation: PropTypes.func.isRequired,
@@ -134,6 +152,12 @@ Map.propTypes = {
     })
   }),
   history: PropTypes.shape({
+    sync: PropTypes.bool,
+    syncing: PropTypes.bool,
+    loading: PropTypes.bool,
+    data: PropTypes.array
+  }),
+  weatherForecast: PropTypes.shape({
     sync: PropTypes.bool,
     syncing: PropTypes.bool,
     loading: PropTypes.bool,
@@ -171,6 +195,9 @@ Map.propTypes = {
         active: PropTypes.bool,
         preloading: PropTypes.bool
       })
+    }),
+    forecast: PropTypes.shape({
+      date: PropTypes.object.isRequired
     }),
     webcams: PropTypes.shape({
       selected: PropTypes.object

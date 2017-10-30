@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
   return {
     realtime: state.realtime,
     history: state.history,
+    weatherForecast: state.weatherForecast,
     webcams: state.webcams,
     map: state.map,
     radar: state.radar
@@ -34,6 +35,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchHistoricData: (year, month, day) => {
       dispatch(RealtimeApi.actions.historicData({ year, month, day }))
+    },
+    fetchWeatherForecastData: (date) => {
+      dispatch(RealtimeApi.actions.weatherForecastData({
+        year: date.format('Y'),
+        month: date.format('M'),
+        day: date.format('D')
+      }))
     },
     fetchWebcamsData: () => {
       dispatch(WebcamsApi.actions.webcams())

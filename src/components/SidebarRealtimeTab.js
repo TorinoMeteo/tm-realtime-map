@@ -129,6 +129,20 @@ export const SidebarRealtimeTab = (props) => {
             </li>
           </ul>
         </li>
+        <li key='weather'>
+          <i className='wi wi-day-sunny' />
+          Tempo
+          <ul className='depth-1'>
+            <li>
+              <a
+                onClick={() => changeLiveQuantity('weather')}
+                className={'btn btn-controller btn-sm' +
+                  (quantity === 'weather' ? ' active' : '')}>
+                  situazione
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
       <hr />
       <div className='sidebar-content'>

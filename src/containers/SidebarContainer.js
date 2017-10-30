@@ -6,6 +6,7 @@ import {
   changeHistoryQuantity,
   changeView,
   changeHistoryDate,
+  changeForecastDate,
   selectWebcam
 } from 'store/map'
 
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     changeHistoryDate: (year, month, day) => {
       dispatch(changeHistoryDate(year, month, day))
+    },
+    changeForecastDate: (date) => {
+      dispatch(changeForecastDate(date))
     },
     changeView: (view) => {
       dispatch(changeView(view))

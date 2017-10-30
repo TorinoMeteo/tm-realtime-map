@@ -43,6 +43,18 @@ export function historicDataTransformer (data = initialHistoricData, prevData, a
   return data
 }
 
+const initialWeatherForecstData = []
+
+export function weatherForecastDataTransformer (data = initialWeatherForecstData, prevData, action) {
+  if (action && (
+    action.type === '@@redux-api@weatherForecast_success'
+  )) {
+    // ready to do custom transformations
+    return data || initialWeatherForecstData
+  }
+  return data
+}
+
 const initialRadarImages = {
   live: [],
   history: []

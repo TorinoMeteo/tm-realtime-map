@@ -7,6 +7,7 @@ import * as Db from 'utils/db'
 export const LIVE_QUANTITY_CHANGED = 'LIVE_QUANTITY_CHANGED'
 export const HISTORY_QUANTITY_CHANGED = 'HISTORY_QUANTITY_CHANGED'
 export const HISTORY_DATE_CHANGED = 'HISTORY_DATE_CHANGED'
+export const FORECAST_DATE_CHANGED = 'FORECAST_DATE_CHANGED'
 export const VIEW_CHANGED = 'VIEW_CHANGED'
 export const WEBCAM_SELECTED = 'WEBCAM_SELECTED'
 export const LIVE_STATION_SELECTED = 'LIVE_STATION_SELECTED'
@@ -47,6 +48,13 @@ export function changeHistoryDate (year, month, day) {
   return {
     type    : HISTORY_DATE_CHANGED,
     payload : { year, month, day }
+  }
+}
+
+export function changeForecastDate (date) {
+  return {
+    type    : FORECAST_DATE_CHANGED,
+    payload : { date }
   }
 }
 
@@ -219,6 +227,9 @@ const initialState = {
       active: false
     }
   },
+  forecast: {
+    date: moment(new Date()).add(1, 'days')
+  },
   webcams: {
     selected: null
   }
@@ -232,6 +243,8 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, view: action.payload }
   } else if (action.type === HISTORY_DATE_CHANGED) {
     return { ...state, history: { ...state.history, ...action.payload } }
+  } else if (action.type === FORECAST_DATE_CHANGED) {
+    return { ...state, forecast: { ...state.forecast, ...action.payload } }
   } else if (action.type === WEBCAM_SELECTED) {
     return { ...state, webcams: { ...state.webcams, selected: action.payload } }
   } else if (action.type === LIVE_STATION_SELECTED) {
