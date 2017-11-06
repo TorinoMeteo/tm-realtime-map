@@ -40,9 +40,9 @@ class Map extends React.Component {
     } else if (nextProps.map.view === 'webcams' && !nextProps.webcams.data.length) {
       this.props.fetchWebcamsData()
     } else if (
-      (nextProps.map.view === 'forecast' &&
-        nextProps.map.forecast.date.format('YMD') !== this.props.map.forecast.date.format('YMD')) ||
-      !this.props.weatherForecast.sync) {
+      nextProps.map.view === 'forecast' &&
+        (nextProps.map.forecast.date.format('YMD') !== this.props.map.forecast.date.format('YMD') ||
+      !this.props.weatherForecast.sync)) {
       this.props.fetchWeatherForecastData(nextProps.map.forecast.date)
     }
   }

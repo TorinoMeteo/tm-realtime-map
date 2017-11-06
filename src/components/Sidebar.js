@@ -6,6 +6,7 @@ import SidebarHistoryTab from 'components/SidebarHistoryTab'
 import SidebarForecastTab from 'components/SidebarForecastTab'
 import SidebarWebcamTab from 'components/SidebarWebcamTab'
 import SidebarSettingsTab from 'components/SidebarSettingsTab'
+import SidebarInfoTab from 'components/SidebarInfoTab'
 
 export class Sidebar extends React.Component {
   static propTypes = {
@@ -58,16 +59,16 @@ export class Sidebar extends React.Component {
   }
 
   render () {
-    let left = this.props.ui.displaySidebar ? 0 : '-380px'
+    let left = this.props.ui.displaySidebar ? 0 : '-340px'
     return (
       <nav className='nav-sidebar' style={{ left: left }}>
         <Tabs>
           <TabList>
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
-            <Tab onClick={() => this.props.changeView('forecast')}>Previsioni</Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
             <Tab><i className='ion-gear-a' /></Tab>
+            <Tab><i className='ion-information-circled' /></Tab>
           </TabList>
           <TabPanel>
             <SidebarRealtimeTab
@@ -88,12 +89,6 @@ export class Sidebar extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <SidebarForecastTab
-              date={this.props.map.forecast.date}
-              changeForecastDate={this.props.changeForecastDate}
-            />
-          </TabPanel>
-          <TabPanel>
             <SidebarWebcamTab
               webcams={this.props.webcams.data}
               selected={this.props.map.webcams.selected}
@@ -105,6 +100,9 @@ export class Sidebar extends React.Component {
             <SidebarSettingsTab
               stations={this.props.realtime.data.stations}
             />
+          </TabPanel>
+          <TabPanel>
+            <SidebarInfoTab />
           </TabPanel>
         </Tabs>
       </nav>

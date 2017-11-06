@@ -33,7 +33,7 @@ export default reduxApi(addBaseApiUrl(
       transformer: historicDataTransformer
     },
     weatherForecastData: {
-      url: 'weather/?date=:year-:month-:day',
+      url: 'realtime/forecast/?date=:year-:month-:day',
       options: config.api.headers,
       reducerName: 'weatherForecast',
       transformer: weatherForecastDataTransformer

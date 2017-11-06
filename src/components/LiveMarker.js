@@ -24,10 +24,10 @@ const LiveMarker = (props) => {
   let label
 
   if (props.quantity === 'weather') {
-    value = props.obj['weather_icon_url']
+    value = props.obj['weather_icon']
     label = null
     if (value) {
-      icon = value
+      icon = value.icon
     } else {
       icon = null
     }

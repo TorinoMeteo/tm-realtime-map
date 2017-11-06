@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as Db from 'utils/db'
 
-class SidebarInfoTab extends React.Component {
+class SidebarSettingsTab extends React.Component {
   static propTypes = {
     stations: PropTypes.array.isRequired
   }
@@ -75,4 +75,4 @@ class SidebarInfoTab extends React.Component {
   }
 }
 
-export default SidebarInfoTab
+export default SidebarSettingsTab

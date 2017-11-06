@@ -15,6 +15,16 @@ const LiveStationModal = (props) => {
   let rexp = new RegExp('<img .*?src="(https?://www.yr.no.*?)".*?>')
   let matches = description.match(rexp)
   let meteogramUrl = matches && matches[1] ? matches[1] : null
+  let weatherIconUrl = props.data.weather_icon ? props.data.weather_icon.icon : ''
+  let weatherIconCredits = props.data.weather_icon_credits
+  let weatherIconImg = weatherIconUrl
+    ? (
+      <a target='_blank' href={weatherIconCredits}>
+        <img style={{ marginLeft: '15px' }} src={weatherIconUrl} />
+      </a>
+    )
+    : null
+
   return (
     <Modal
       onRequestClose={props.onRequestClose}
@@ -25,6 +35,7 @@ const LiveStationModal = (props) => {
       <section className='tm-modal-content'>
         <h2 style={{ marginBottom: '1rem' }}>
           {props.data.station.name}
+          {weatherIconImg}
           <a
             href={'https://www.torinometeo.org/realtime/' + props.data.station.slug}
             target='_blank'

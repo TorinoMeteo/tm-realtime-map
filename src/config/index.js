@@ -17,7 +17,7 @@ config.basename = __PROD__
  * API base url
  */
 config.api.baseUrl = 'https://www.torinometeo.org/api/v1'
-config.api.requestTimeout = 1000 * 12
+config.api.requestTimeout = 1000 * 500
 
 /**
  * request headers used with fetch
