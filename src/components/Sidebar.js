@@ -7,6 +7,7 @@ import SidebarForecastTab from 'components/SidebarForecastTab'
 import SidebarWebcamTab from 'components/SidebarWebcamTab'
 import SidebarSettingsTab from 'components/SidebarSettingsTab'
 import SidebarInfoTab from 'components/SidebarInfoTab'
+import { isApp } from 'utils/app'
 
 export class Sidebar extends React.Component {
   static propTypes = {
@@ -60,8 +61,10 @@ export class Sidebar extends React.Component {
 
   render () {
     let left = this.props.ui.displaySidebar ? 0 : '-340px'
+    let navClasses = isApp() ? 'nav-sidebar bg-android' : 'nav-sidebar'
+
     return (
-      <nav className='nav-sidebar' style={{ left: left }}>
+      <nav className={navClasses} style={{ left: left }}>
         <Tabs>
           <TabList>
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import Logo from 'assets/images/logo.png'
 import moment from 'moment'
 /* eslint-disable */
-import { tz } from 'moment-timezone'
+import { tz } from "moment-timezone";
 /* eslint-enable */
 import DatePicker from 'react-datepicker'
+import RadarLegend from 'components/RadarLegend'
 import 'styles/react-datepicker.scss'
+import { isApp } from 'utils/app'
 moment.locale('it')
 
 class Toolbar extends React.Component {
@@ -38,45 +40,47 @@ class Toolbar extends React.Component {
     let title
     if (map.view === 'live') {
       if (map.live.radar.active) {
-        title = map.live.radar.image
-          ? (<div>
+        title = map.live.radar.image ? (
+          <div>
             Radar <i className='ion-clock' />{' '}
             {moment(map.live.radar.image.datetime).format('HH:mm')}&nbsp; mm/h
-            <div>
-		<span style={{'background-color': '#91FADC', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>0.2</span>
-             	&nbsp;<span style={{'background-color': '#64AF91', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>1</span>
-             	&nbsp;<span style={{'background-color': '#55C80A', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>2</span>
-             	&nbsp;<span style={{'background-color': '#DCFF46', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>4</span>
-             	&nbsp;<span style={{'background-color': '#FF6E78', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>6</span>
-             	&nbsp;<span style={{'background-color': '#FA7355', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>10</span>
-            	&nbsp;<span style={{'background-color': '#FA0A3C', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>20</span>
-            	&nbsp;<span style={{'background-color': '#0A8CD2', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>40</span>
-            	&nbsp;<span style={{'background-color': '#A00A7D', 'padding':'1px 10px 1px 10px', 'color':'white', 'text-shadow': '0px 0px 2px black' }}>60</span>
-     	     </div>
-	     </div>)
-          : 'Radar'
+            <RadarLegend />
+          </div>
+        ) : (
+          'Radar'
+        )
       } else {
         title = this.props.stations.length
-          ? this.props.stations.length + ' stazioni (' + this.props.stations.filter(s => !s.offline).length + ' online)'
+          ? this.props.stations.length +
+            ' stazioni (' +
+            this.props.stations.filter(s => !s.offline).length +
+            ' online)'
           : ''
       }
     } else if (map.view === 'history') {
       let radarTitle = null
       if (map.history.radar.active) {
-        radarTitle = map.history.radar.image
-          ? (<div>
+        radarTitle = map.history.radar.image ? (
+          <div>
             Radar <i className='ion-clock' />{' '}
             {moment(map.history.radar.image.datetime).format('HH:mm')}
-          </div>)
-          : 'Radar'
+          </div>
+        ) : (
+          'Radar'
+        )
       }
       let date = moment(
-        map.history.year + '-' + map.history.month + '-' + map.history.day, 'Y-M-D'
+        map.history.year + '-' + map.history.month + '-' + map.history.day,
+        'Y-M-D'
       )
       title = (
         <div>
           <span>
-            <i className='ion-calendar' onClick={this.toggleCalendar} style={{ cursor: 'pointer' }} />
+            <i
+              className='ion-calendar'
+              onClick={this.toggleCalendar}
+              style={{ cursor: 'pointer' }}
+            />
             {' ' + date.format('LL') + ' '}
           </span>
           {this.state.calendarIsOpen && (
@@ -101,19 +105,32 @@ class Toolbar extends React.Component {
       title = 'Webcam'
     }
 
-    let togglerClass = this.props.ui.displaySidebar ? 'ion-ios-close-empty' : 'ion-navicon'
+    let togglerClass = this.props.ui.displaySidebar
+      ? 'ion-ios-close-empty'
+      : 'ion-navicon'
+
+    let logo = (
+      <a className='navbar-brand' href='https://www.torinometeo.org'>
+        <img src={Logo} alt='TorinoMeteo' />
+      </a>
+    )
+    let navClasses = 'navbar navbar-inverse bg-inverse app-navbar'
+    if (isApp()) {
+      logo = null
+      navClasses = 'navbar navbar-inverse bg-android app-navbar'
+    }
 
     return (
-      <nav className='navbar navbar-inverse bg-inverse app-navbar'>
-        <button className='navbar-toggler' type='button' onClick={this.props.toggleSidebar}>
+      <nav className={navClasses}>
+        <button
+          className='navbar-toggler'
+          type='button'
+          onClick={this.props.toggleSidebar}
+        >
           <i className={togglerClass} />
         </button>
-        <span className='navbar-title'>
-          {title}
-        </span>
-        <a className='navbar-brand' href='https://www.torinometeo.org'>
-          <img src={Logo} alt='TorinoMeteo' />
-        </a>
+        <span className='navbar-title'>{title}</span>
+        {logo}
       </nav>
     )
   }
