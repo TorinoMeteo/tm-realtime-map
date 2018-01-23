@@ -63,6 +63,21 @@ export class Sidebar extends React.Component {
     let left = this.props.ui.displaySidebar ? 0 : '-340px'
     let navClasses = isApp() ? 'nav-sidebar bg-android' : 'nav-sidebar'
 
+    let settingsTab = (
+      <Tab><i className='ion-gear-a' /></Tab>
+    )
+    let settingsPanel = (
+      <TabPanel>
+        <SidebarSettingsTab
+          stations={this.props.realtime.data.stations}
+        />
+      </TabPanel>
+    )
+    if (isApp()) {
+      settingsTab = null
+      settingsPanel = null
+    }
+
     return (
       <nav className={navClasses} style={{ left: left }}>
         <Tabs>
@@ -70,7 +85,7 @@ export class Sidebar extends React.Component {
             <Tab onClick={() => this.props.changeView('live')}>Live</Tab>
             <Tab onClick={() => this.props.changeView('history')}>Storico</Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>Webcam</Tab>
-            <Tab><i className='ion-gear-a' /></Tab>
+            {settingsTab}
             <Tab><i className='ion-information-circled' /></Tab>
           </TabList>
           <TabPanel>
@@ -99,11 +114,7 @@ export class Sidebar extends React.Component {
               toggleSidebar={this.props.toggleSidebar}
             />
           </TabPanel>
-          <TabPanel>
-            <SidebarSettingsTab
-              stations={this.props.realtime.data.stations}
-            />
-          </TabPanel>
+          {settingsPanel}
           <TabPanel>
             <SidebarInfoTab />
           </TabPanel>
