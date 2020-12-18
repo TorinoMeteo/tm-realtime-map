@@ -69,6 +69,10 @@
     &:first-child {
       border-top-width: 0;
     }
+
+    &:hover {
+      background: lighten(#292b2c, 5%);
+    }
   }
 }
 
@@ -79,10 +83,20 @@
   h2 {
     color: $sidebar-content-title-color;
     font-size: 1.4rem;
+    font-weight: 600;
     margin: 1.2rem 0;
     text-shadow: 0 0 1px $black;
     text-transform: uppercase;
   }
+
+  &.nopadding {
+    padding: 0 !important;
+
+    > h2 {
+      padding: .5rem 1rem 0;
+    }
+  }
+
 }
 
 // radar controller
@@ -109,4 +123,15 @@
   .ion-plus-round {
     margin-left: 12px;
   }
+}
+
+.switch-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    margin: 0 .5rem;
+  }
+
 }

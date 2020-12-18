@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactSlider from 'react-slider'
-import SwitchButton from 'react-switch-button'
-import 'styles/react-switch-button.scss'
+import Switch from 'react-switch'
 
 class RadarController extends React.Component {
   static propTypes = {
@@ -17,7 +16,7 @@ class RadarController extends React.Component {
       pause: PropTypes.bool,
       frequency: PropTypes.number
     })
-  }
+  };
 
   constructor (props) {
     super(props)
@@ -30,7 +29,7 @@ class RadarController extends React.Component {
   render () {
     // no images? no controller
     if (!this.props.images.length) {
-      return (<span>N.D.</span>)
+      return <span>N.D.</span>
     }
 
     let controllers = null
@@ -45,23 +44,23 @@ class RadarController extends React.Component {
               step={100}
               invert
               defaultValue={this.state.frequency}
-              onChange={(value) => {
+              onChange={value => {
                 this.setState({ frequency: value })
               }}
-              onAfterChange={(value) => {
+              onAfterChange={value => {
                 this.setState({ frequency: value })
                 this.props.changeRadarFrequency(value)
               }}
             >
-              <div className='handle'>
-                {this.state.frequency / 1000 + 's'}
-              </div>
+              <div className='handle'>{this.state.frequency / 1000 + 's'}</div>
             </ReactSlider>
             <i className='ion-plus-round' />
           </div>
           <div>
             <i
-              onClick={() => this.props.changeRadarPause(!this.props.status.pause)}
+              onClick={() =>
+                this.props.changeRadarPause(!this.props.status.pause)
+              }
               className={this.props.status.pause ? 'ion-play' : 'ion-pause'}
             />
           </div>
@@ -71,13 +70,18 @@ class RadarController extends React.Component {
 
     return (
       <div>
-        <SwitchButton
-          name={'switch-radar'}
-          label='OFF'
-          labelRight='ON'
-          defaultChecked={this.props.status.active}
-          onChange={() => this.props.changeRadarStatus(!this.props.status.active)}
-        />
+        <div className='switch-wrapper'>
+          <span>OFF</span>
+          <Switch
+            name={'switch-radar'}
+            defaultChecked={this.props.status.active}
+            checked={this.props.status.active}
+            onChange={() =>
+              this.props.changeRadarStatus(!this.props.status.active)
+            }
+          />
+          <span>ON</span>
+        </div>
         {controllers}
       </div>
     )

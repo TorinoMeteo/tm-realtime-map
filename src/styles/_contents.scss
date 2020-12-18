@@ -57,3 +57,29 @@
     margin-bottom: 1rem;
   }
 }
+
+.airquality-index {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  .value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 1rem;
+  }
+}
+
+.table-airquality {
+  thead {
+    background: #c7c7c7;
+    color: #fff;
+  }
+
+  .value,
+  .time {
+    font-weight: 600;
+  }
+
+  margin-top: 1rem;
+}

@@ -2,8 +2,10 @@ import { connect } from 'react-redux'
 import Map from 'components/Map'
 import RealtimeApi from 'api/realtime'
 import WebcamsApi from 'api/webcams'
+import AirQualityApi from 'api/airquality'
 import {
   selectWebcam,
+  selectAirQualityStation,
   selectLiveStation,
   selectHistoryStation,
   changeLiveRadarPreloading,
@@ -17,6 +19,7 @@ const mapStateToProps = (state) => {
     history: state.history,
     weatherForecast: state.weatherForecast,
     webcams: state.webcams,
+    airquality: state.airquality,
     map: state.map,
     radar: state.radar
   }
@@ -46,8 +49,14 @@ const mapDispatchToProps = (dispatch) => {
     fetchWebcamsData: () => {
       dispatch(WebcamsApi.actions.webcams())
     },
+    fetchAirQualityData: () => {
+      dispatch(AirQualityApi.actions.stations())
+    },
     selectWebcam: (webcam) => {
       dispatch(selectWebcam(webcam))
+    },
+    selectAirQualityStation: (station) => {
+      dispatch(selectAirQualityStation(station))
     },
     selectLiveStation: (stationData) => {
       dispatch(selectLiveStation(stationData))

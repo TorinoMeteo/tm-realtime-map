@@ -4,6 +4,7 @@ import uiReducer from './ui'
 import mapReducer from './map'
 import RealtimeApi from 'api/realtime'
 import WebcamsApi from 'api/webcams'
+import AirQualityApi from 'api/airquality'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -12,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
     map: mapReducer,
     ...RealtimeApi.reducers,
     ...WebcamsApi.reducers,
+    ...AirQualityApi.reducers,
     ...asyncReducers
   })
 }

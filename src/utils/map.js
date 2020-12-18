@@ -10,3 +10,7 @@ export function isOffline (data) {
   }
   return false
 }
+
+export function time (t) {
+  return t.substr(0, 5)
+}

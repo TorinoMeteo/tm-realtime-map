@@ -10,6 +10,7 @@ export const HISTORY_DATE_CHANGED = 'HISTORY_DATE_CHANGED'
 export const FORECAST_DATE_CHANGED = 'FORECAST_DATE_CHANGED'
 export const VIEW_CHANGED = 'VIEW_CHANGED'
 export const WEBCAM_SELECTED = 'WEBCAM_SELECTED'
+export const AIRQUALITY_STATION_SELECTED = 'AIRQUALITY_STATION_SELECTED'
 export const LIVE_STATION_SELECTED = 'LIVE_STATION_SELECTED'
 export const HISTORY_STATION_SELECTED = 'HISTORY_STATION_SELECTED'
 export const VIEWPORT_CHANGED = 'VIEWPORT_CHANGED'
@@ -69,6 +70,13 @@ export function selectWebcam (webcam) {
   return {
     type    : WEBCAM_SELECTED,
     payload : webcam
+  }
+}
+
+export function selectAirQualityStation (station) {
+  return {
+    type    : AIRQUALITY_STATION_SELECTED,
+    payload : station
   }
 }
 
@@ -232,6 +240,9 @@ const initialState = {
   },
   webcams: {
     selected: null
+  },
+  airquality: {
+    selected: null
   }
 }
 export default function mapReducer (state = initialState, action) {
@@ -247,6 +258,8 @@ export default function mapReducer (state = initialState, action) {
     return { ...state, forecast: { ...state.forecast, ...action.payload } }
   } else if (action.type === WEBCAM_SELECTED) {
     return { ...state, webcams: { ...state.webcams, selected: action.payload } }
+  } else if (action.type === AIRQUALITY_STATION_SELECTED) {
+    return { ...state, airquality: { ...state.airquality, selected: action.payload } }
   } else if (action.type === LIVE_STATION_SELECTED) {
     return { ...state, live: { ...state.live, selected: action.payload } }
   } else if (action.type === HISTORY_STATION_SELECTED) {

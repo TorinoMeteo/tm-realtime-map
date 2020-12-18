@@ -10,7 +10,8 @@ class SidebarWebcamTab extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='sidebar-content nopadding'>
+        <h2>Webcams</h2>
         <ul className='sidebar-webcams-list'>
           {this.props.webcams.map((w) => {
             return (

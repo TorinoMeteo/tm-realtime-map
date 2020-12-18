@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import SwitchButton from 'react-switch-button'
-import 'styles/react-switch-button.scss'
+import Switch from 'react-switch'
 
 class HeatMapController extends React.Component {
   static propTypes = {
@@ -10,18 +9,24 @@ class HeatMapController extends React.Component {
       active: PropTypes.bool
     }),
     view: PropTypes.string.isRequired
-  }
+  };
 
   render () {
     return (
       <div>
-        <SwitchButton
-          name={'switch-heatmap-' + this.props.view}
-          label='OFF'
-          labelRight='ON'
-          defaultChecked={this.props.status.active}
-          onChange={() => this.props.changeHeatMapStatus(!this.props.status.active)}
-        />
+
+        <div className='switch-wrapper'>
+          <span>OFF</span>
+          <Switch
+            name={'switch-heatmap-' + this.props.view}
+            defaultChecked={this.props.status.active}
+            checked={this.props.status.active}
+            onChange={() =>
+              this.props.changeHeatMapStatus(!this.props.status.active)
+            }
+          />
+          <span>ON</span>
+        </div>
       </div>
     )
   }

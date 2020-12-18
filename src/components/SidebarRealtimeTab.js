@@ -39,7 +39,8 @@ export const SidebarRealtimeTab = (props) => {
   let quantity = props.quantity
 
   return (
-    <div>
+    <div className='sidebar-content nopadding'>
+      <h2>Dati Realtime</h2>
       <ul className='sidebar-quantity-list depth-0'>
         {['temperature', 'pressure', 'relative_humidity', 'dewpoint'].map((q) => {
           return (

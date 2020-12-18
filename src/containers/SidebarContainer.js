@@ -7,7 +7,8 @@ import {
   changeView,
   changeHistoryDate,
   changeForecastDate,
-  selectWebcam
+  selectWebcam,
+  selectAirQualityStation
 } from 'store/map'
 
 const mapStateToProps = (state) => {
@@ -15,7 +16,8 @@ const mapStateToProps = (state) => {
     ui: state.ui,
     map: state.map,
     webcams: state.webcams,
-    realtime: state.realtime
+    realtime: state.realtime,
+    airquality: state.airquality
   }
 }
 
@@ -38,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectWebcam: (webcam) => {
       dispatch(selectWebcam(webcam))
+    },
+    selectAirqualityStation: (station) => {
+      dispatch(selectAirQualityStation(station))
     },
     toggleSidebar: () => {
       dispatch(toggleSidebar())
