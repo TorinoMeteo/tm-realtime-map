@@ -5,6 +5,7 @@ import * as Db from 'utils/db'
 // Constants
 // ------------------------------------
 export const LIVE_QUANTITY_CHANGED = 'LIVE_QUANTITY_CHANGED'
+export const AIRQUALITY_QUANTITY_CHANGED = 'AIRQUALITY_QUANTITY_CHANGED'
 export const HISTORY_QUANTITY_CHANGED = 'HISTORY_QUANTITY_CHANGED'
 export const HISTORY_DATE_CHANGED = 'HISTORY_DATE_CHANGED'
 export const FORECAST_DATE_CHANGED = 'FORECAST_DATE_CHANGED'
@@ -34,6 +35,13 @@ export const HEATMAP_HISTORY_STATUS_CHANGED = 'HEATMAP_HISTORY_STATUS_CHANGED'
 export function changeLiveQuantity (quantity) {
   return {
     type    : LIVE_QUANTITY_CHANGED,
+    payload : quantity
+  }
+}
+
+export function changeAirQualityQuantity (quantity) {
+  return {
+    type    : AIRQUALITY_QUANTITY_CHANGED,
     payload : quantity
   }
 }
@@ -242,12 +250,15 @@ const initialState = {
     selected: null
   },
   airquality: {
+    quantity: 'air_quality_index',
     selected: null
   }
 }
 export default function mapReducer (state = initialState, action) {
   if (action.type === LIVE_QUANTITY_CHANGED) {
     return { ...state, live: { ...state.live, quantity: action.payload } }
+  } else if (action.type === AIRQUALITY_QUANTITY_CHANGED) {
+    return { ...state, airquality: { ...state.airquality, quantity: action.payload } }
   } else if (action.type === HISTORY_QUANTITY_CHANGED) {
     return { ...state, history: { ...state.history, quantity: action.payload } }
   } else if (action.type === VIEW_CHANGED) {

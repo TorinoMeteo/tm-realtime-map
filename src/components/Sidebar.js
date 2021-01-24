@@ -13,6 +13,7 @@ import { isApp } from 'utils/app'
 export class Sidebar extends React.Component {
   static propTypes = {
     changeLiveQuantity: PropTypes.func.isRequired,
+    changeAirQualityQuantity: PropTypes.func.isRequired,
     changeHistoryQuantity: PropTypes.func.isRequired,
     changeHistoryDate: PropTypes.func.isRequired,
     changeForecastDate: PropTypes.func.isRequired,
@@ -45,6 +46,7 @@ export class Sidebar extends React.Component {
         selected: PropTypes.object
       }),
       airquality: PropTypes.shape({
+        quantity: PropTypes.string,
         selected: PropTypes.object
       })
     }),
@@ -142,6 +144,8 @@ export class Sidebar extends React.Component {
               selected={this.props.map.airquality.selected}
               onSelectStation={this.props.selectAirqualityStation}
               toggleSidebar={this.props.toggleSidebar}
+              changeAirQualityQuantity={this.props.changeAirQualityQuantity}
+              quantity={this.props.map.airquality.quantity}
             />
           </TabPanel>
           {settingsPanel}

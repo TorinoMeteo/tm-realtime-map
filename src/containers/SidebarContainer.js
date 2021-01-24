@@ -3,6 +3,7 @@ import Sidebar from 'components/Sidebar'
 import { toggleSidebar } from 'store/ui'
 import {
   changeLiveQuantity,
+  changeAirQualityQuantity,
   changeHistoryQuantity,
   changeView,
   changeHistoryDate,
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeLiveQuantity: (quantity) => {
       dispatch(changeLiveQuantity(quantity))
+    },
+    changeAirQualityQuantity: (quantity) => {
+      dispatch(changeAirQualityQuantity(quantity))
     },
     changeHistoryQuantity: (quantity) => {
       dispatch(changeHistoryQuantity(quantity))

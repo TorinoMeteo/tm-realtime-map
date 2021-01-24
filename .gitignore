@@ -6,3 +6,4 @@ coverage
 .idea/
 .yarn-cache
 yarn-lock
+tags

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withGoogleMap, GoogleMap } from 'react-google-maps'
 import { time } from '../utils/map'
 import Modal from 'react-modal'
+import AirQualityMarker from 'components/AirQualityMarker'
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import WebcamMarker from 'components/WebcamMarker'
 
@@ -88,8 +89,9 @@ class AirQualityMapClass extends React.Component {
           <MarkerClusterer averageCenter enableRetinaIcons gridSize={60}>
             {this.props.data.map((obj, index) => {
               return (
-                <WebcamMarker
-                  obj={{ latitude: obj.lat, longitude: obj.lng }}
+                <AirQualityMarker
+                  obj={obj}
+                  quantity={this.props.mapData.airquality.quantity}
                   key={obj.id}
                   onClick={() => this.props.selectAirQualityStation(obj)}
                 />
@@ -106,6 +108,7 @@ AirQualityMapClass.propTypes = {
   data: PropTypes.array,
   mapData: PropTypes.shape({
     airquality: PropTypes.shape({
+      quantity: PropTypes.string,
       selected: PropTypes.object
     }),
     center: PropTypes.object.isRequired,
