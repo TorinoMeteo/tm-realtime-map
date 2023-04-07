@@ -27,7 +27,10 @@ const LiveMarker = (props) => {
     value = props.obj['weather_icon']
     label = null
     if (value) {
-      icon = value.icon
+      icon = {
+        url: value.icon,
+        scaledSize: { width: 52, height: 52 }
+      }
     } else {
       icon = null
     }

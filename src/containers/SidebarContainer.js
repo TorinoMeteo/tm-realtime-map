@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => {
     changeHistoryDate: (year, month, day) => {
       dispatch(changeHistoryDate(year, month, day))
     },
-    changeForecastDate: (date) => {
-      dispatch(changeForecastDate(date))
+    changeForecastDate: (date, period) => {
+      dispatch(changeForecastDate(date, period))
     },
     changeView: (view) => {
       dispatch(changeView(view))

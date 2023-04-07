@@ -150,8 +150,8 @@ export const SidebarRealtimeTab = (props) => {
         <h2 style={{ marginTop: 0 }}>Radar</h2>
         <LiveRadarControllerContainer />
         <hr />
-        <h2>HeatMap</h2>
-        <LiveHeatMapControllerContainer />
+        {/* <h2>HeatMap</h2> */}
+        {/* <LiveHeatMapControllerContainer /> */}
       </div>
     </div>
   )

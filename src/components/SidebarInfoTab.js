@@ -21,13 +21,13 @@ class SidebarInfoTab extends React.Component {
       <div className='sidebar-content'>
         {androidAppInfo}
         <h2>Icone meteo</h2>
-        <p>Le icone meteo presenti nell'applicazione sono ricavate a partire dalle previsioni
-          meteorologiche di <a href='https://www.yr.no' target='_blank'>Yr</a> fornite
-          da Meteorological Institute e NRK.</p>
+        <p>Le icone meteo presenti nell'applicazione sono ricavate a partire dalle API
+          meteorologiche di <a href='https://www.met.no/' target='_blank'>MET Norway</a> fornite
+          dal Norwegian Meteorological Institute.</p>
         <p>Cliccando sull'icona nel dettaglio stazione si accede alla pagina previsionale
           dalla quale sono state prese le informazioni.</p>
         <h2>Realtime Map</h2>
-        <p>Copyright &copy; 2017 TorinoMeteo</p>
+        <p>Copyright &copy; 2017-{new Date().getFullYear()} TorinoMeteo</p>
       </div>
     )
   }

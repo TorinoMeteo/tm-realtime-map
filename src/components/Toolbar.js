@@ -8,6 +8,7 @@ import { tz } from "moment-timezone";
 import DatePicker from 'react-datepicker'
 import RadarLegend from 'components/RadarLegend'
 import 'styles/react-datepicker.scss'
+import { periodMap } from 'utils/forecast'
 import { isApp } from 'utils/app'
 moment.locale('it')
 
@@ -100,7 +101,7 @@ class Toolbar extends React.Component {
         </div>
       )
     } else if (map.view === 'forecast') {
-      title = 'Previsioni ' + this.props.map.forecast.date.format('LL')
+      title = 'Previsioni ' + this.props.map.forecast.date.format('LL') + ', ' + periodMap[this.props.map.forecast.period]
     } else if (map.view === 'webcams') {
       title = 'Webcam'
     }

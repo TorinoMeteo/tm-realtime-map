@@ -3,12 +3,12 @@
   background: $sidebar-bg;
   color: $sidebar-color;
   height: 100%;
-  left: -340px;
+  left: -360px;
   overflow: auto;
   position: fixed;
   top: 65px;
   transition: left .3s linear;
-  width: 340px;
+  width: 350px;
   z-index: 100;
 }
 
@@ -62,16 +62,33 @@
     border-top: 1px solid $sidebar-list-border-top-color;
     padding: .5rem 1rem;
 
-    &.active {
-      border-left: 5px solid $sidebar-list-active-border-color;
-    }
-
     &:first-child {
       border-top-width: 0;
     }
 
     &:hover {
       background: lighten(#292b2c, 5%);
+    }
+
+    &.active {
+      color: $sidebar-list-active-border-color;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-top: .5rem;
+      padding-left: 10px;
+    }
+
+    li {
+      border-bottom: 0px solid;
+      border-left: 0px solid $sidebar-list-active-border-color;
+      color: #fff;
+
+      &.active {
+        border-left: 2px solid $sidebar-list-active-border-color;
+        color: #fff;
+      }
     }
   }
 }

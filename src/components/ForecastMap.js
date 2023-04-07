@@ -35,16 +35,15 @@ class ForecastMapClass extends React.Component {
             enableRetinaIcons
             gridSize={60}
           >
-            {this.props.data.map((obj, index) => {
+            {this.props.data.filter(obj => obj.period === this.props.mapData.forecast.period).map((obj, index) => {
               return (
                 <LiveMarker
                   quantity='weather'
                   obj={{
-                    weather_icon_url: obj.icon,
+                    weather_icon: { icon : obj.icon },
                     station: obj.station
                   }}
                   key={obj.station.id}
-                  onClick={() => {}}
                 />
               )
             })}
@@ -59,7 +58,8 @@ ForecastMapClass.propTypes = {
   data: PropTypes.array,
   mapData: PropTypes.shape({
     forecast: PropTypes.shape({
-      date: PropTypes.object
+      date: PropTypes.object,
+      period: PropTypes.number
     }),
     center: PropTypes.object.isRequired,
     zoom: PropTypes.number.isRequired

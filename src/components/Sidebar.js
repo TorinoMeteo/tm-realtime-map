@@ -40,7 +40,8 @@ export class Sidebar extends React.Component {
         day: PropTypes.number | PropTypes.string
       }),
       forecast: PropTypes.shape({
-        date: PropTypes.object
+        date: PropTypes.object,
+        period: PropTypes.number
       }),
       webcams: PropTypes.shape({
         selected: PropTypes.object
@@ -73,7 +74,7 @@ export class Sidebar extends React.Component {
   };
 
   render () {
-    let left = this.props.ui.displaySidebar ? 0 : '-340px'
+    let left = this.props.ui.displaySidebar ? 0 : '-350px'
     let navClasses = isApp() ? 'nav-sidebar bg-android' : 'nav-sidebar'
 
     let settingsTab = (
@@ -100,6 +101,9 @@ export class Sidebar extends React.Component {
             </Tab>
             <Tab onClick={() => this.props.changeView('history')}>
               <i title='Storico' className='ion ion-calendar' />
+            </Tab>
+            <Tab onClick={() => this.props.changeView('forecast')}>
+              <i title='Previsioni' className='ion ion-ios-partlysunny' />
             </Tab>
             <Tab onClick={() => this.props.changeView('webcams')}>
               <i title='Webcam' className='ion ion-ios-camera' />
@@ -128,6 +132,13 @@ export class Sidebar extends React.Component {
                 month: this.props.map.history.month,
                 day: this.props.map.history.day
               }}
+            />
+          </TabPanel>
+          <TabPanel>
+            <SidebarForecastTab
+              date={this.props.map.forecast.date}
+              period={this.props.map.forecast.period || 0}
+              changeForecastDate={this.props.changeForecastDate}
             />
           </TabPanel>
           <TabPanel>

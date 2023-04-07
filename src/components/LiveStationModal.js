@@ -20,7 +20,7 @@ const LiveStationModal = (props) => {
   let weatherIconImg = weatherIconUrl
     ? (
       <a target='_blank' href={weatherIconCredits}>
-        <img style={{ marginLeft: '15px' }} src={weatherIconUrl} />
+        <img style={{ marginLeft: '15px', height: '52px' }} src={weatherIconUrl} />
       </a>
     )
     : null
@@ -28,7 +28,7 @@ const LiveStationModal = (props) => {
   return (
     <Modal
       onRequestClose={props.onRequestClose}
-      className='tm-modal tm-modal-sm'
+      className='tm-modal tm-modal-md'
       contentLabel='Station Preview Modal'
       isOpen
     >

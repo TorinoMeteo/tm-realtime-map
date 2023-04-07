@@ -60,10 +60,10 @@ export function changeHistoryDate (year, month, day) {
   }
 }
 
-export function changeForecastDate (date) {
+export function changeForecastDate (date, period) {
   return {
     type    : FORECAST_DATE_CHANGED,
-    payload : { date }
+    payload : { date, period }
   }
 }
 
@@ -244,7 +244,8 @@ const initialState = {
     }
   },
   forecast: {
-    date: moment(new Date()).add(1, 'days')
+    date: moment(new Date()).add(1, 'days'),
+    period: 0
   },
   webcams: {
     selected: null

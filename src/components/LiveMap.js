@@ -55,6 +55,12 @@ class LiveMapClass extends React.Component {
           ? 'wind_strength_max'
           : quantity
         )
+    console.log('HEATMAP', this.props.data.filter(obj => !isOffline(obj)).map((obj) => {
+          return {
+            location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
+            weight: parseFloat(obj[weight])
+          }
+        })) // eslint-disable-line
     return (
       <HeatmapLayer
         options={{
@@ -64,7 +70,7 @@ class LiveMapClass extends React.Component {
         data={this.props.data.filter(obj => !isOffline(obj)).map((obj) => {
           return {
             location: new google.maps.LatLng(obj.station.lat, obj.station.lng),
-            weight: obj[weight]
+            weight: parseFloat(obj[weight]) + 50 // no negative numbers 
           }
         })}
       />
