@@ -14,6 +14,7 @@ let dftIcon = {
 }
 
 const AirQualityMarker = (props) => {
+  if (!props.obj.station) return null
   const lat = parseFloat(props.obj.station.lat)
   const lng = parseFloat(props.obj.station.lng)
   let icon
@@ -24,7 +25,7 @@ const AirQualityMarker = (props) => {
     fillColor: 'white'
   }
   label = {
-    text: props.obj.last_data[props.quantity],
+    text: props.obj.last_data ? props.obj.last_data[props.quantity] : '',
     fontSize: '12px',
     color: '#000'
   }

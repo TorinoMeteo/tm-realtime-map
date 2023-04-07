@@ -6,7 +6,7 @@ export function airQualityTransformer (data = initialAirQualityData, prevData, a
   if (action && (
     action.type === '@@redux-api@airquality_success'
   )) {
-    return data || initialAirQualityData
+    return data.filter(obj => obj.station && obj.last_data) || initialAirQualityData
   }
   return data
 }
