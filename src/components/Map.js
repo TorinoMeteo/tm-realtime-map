@@ -44,7 +44,8 @@ class Map extends React.Component {
       this.props.fetchAirQualityData()
     } else if (
       nextProps.map.view === 'forecast' &&
-        (nextProps.map.forecast.date.format('YMD') !== this.props.map.forecast.date.format('YMD'))) {
+        (nextProps.map.forecast.date.format('YMD') !== this.props.map.forecast.date.format('YMD') ||
+      !this.props.weatherForecast.sync)) {
       this.props.fetchWeatherForecastData(nextProps.map.forecast.date)
     }
   }
