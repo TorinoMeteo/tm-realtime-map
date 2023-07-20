@@ -115,6 +115,23 @@ class LiveMapClass extends React.Component {
         >
           {this.heatMap()}
           <LiveRadarOverlayContainer />
+          {this.props.data.map((obj, index) => {
+            return (
+              <LiveMarker
+                obj={obj}
+                key={obj.station.id}
+                quantity={this.props.mapData.live.quantity}
+                onClick={() => this.props.selectStation(obj.station)}
+              />
+            )
+          })}
+        </GoogleMap>
+      </div>
+    )
+  }
+}
+
+/*
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
@@ -131,11 +148,7 @@ class LiveMapClass extends React.Component {
               )
             })}
           </MarkerClusterer>
-        </GoogleMap>
-      </div>
-    )
-  }
-}
+*/
 
 LiveMapClass.propTypes = {
   data: PropTypes.array,

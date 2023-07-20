@@ -5,7 +5,6 @@ import {
   GoogleMap
 } from 'react-google-maps'
 import Modal from 'react-modal'
-import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import WebcamMarker from 'components/WebcamMarker'
 
 class WebcamMapClass extends React.Component {
@@ -50,11 +49,6 @@ class WebcamMapClass extends React.Component {
           defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
         >
-          <MarkerClusterer
-            averageCenter
-            enableRetinaIcons
-            gridSize={60}
-          >
             {this.props.data.map((obj, index) => {
               return (
                 <WebcamMarker
@@ -64,7 +58,6 @@ class WebcamMapClass extends React.Component {
                 />
               )
             })}
-          </MarkerClusterer>
         </GoogleMap>
       </div>
     )

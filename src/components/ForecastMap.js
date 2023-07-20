@@ -4,7 +4,6 @@ import {
   withGoogleMap,
   GoogleMap
 } from 'react-google-maps'
-import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import LiveMarker from 'components/LiveMarker'
 
 class ForecastMapClass extends React.Component {
@@ -30,11 +29,6 @@ class ForecastMapClass extends React.Component {
           defaultCenter={this.props.mapData.center}
           ref={(ref) => { this.gmap = ref }}
         >
-          <MarkerClusterer
-            averageCenter
-            enableRetinaIcons
-            gridSize={60}
-          >
             {this.props.data.filter(obj => obj.period === this.props.mapData.forecast.period).map((obj, index) => {
               return (
                 <LiveMarker
@@ -47,7 +41,6 @@ class ForecastMapClass extends React.Component {
                 />
               )
             })}
-          </MarkerClusterer>
         </GoogleMap>
       </div>
     )

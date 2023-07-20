@@ -5,7 +5,6 @@ import {
   GoogleMap,
   HeatmapLayer
 } from 'react-google-maps'
-import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer'
 import HistoryMarker from 'components/HistoryMarker'
 import HistoryStationModal from 'components/HistoryStationModal'
 import HistoryRadarOverlayContainer from 'containers/HistoryRadarOverlayContainer'
@@ -77,11 +76,6 @@ class HistoryMapClass extends React.Component {
         >
           {this.heatMap()}
           <HistoryRadarOverlayContainer />
-          <MarkerClusterer
-            averageCenter
-            enableRetinaIcons
-            gridSize={60}
-          >
             {this.props.data.map((obj, index) => {
               return (
                 <HistoryMarker
@@ -92,7 +86,6 @@ class HistoryMapClass extends React.Component {
                 />
               )
             })}
-          </MarkerClusterer>
         </GoogleMap>
       </div>
     )
